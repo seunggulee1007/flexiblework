@@ -1,0 +1,34 @@
+jwt:
+  token:
+    header: X-SEPARTNERS-AUTH
+    issuer: separtners
+    client-secret: Rel3Bjce2MajBo09qgkNgYaTuzvJe8iwnBFhsDS5
+    expiry-seconds: 300
+spring:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 1000
+        # dialect: org.hibernate.dialect.PostgreSQLDialect
+
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+
+my-app:
+  admin-email: admin@email.com
+  admin-password: 123456789
+  admin-username: admin
+  user-username: user@email.com
+  user-userPassword: user
+  client-id: myApp
+  client-secret: pass
+
+
+app:
+  company-name: Separtners

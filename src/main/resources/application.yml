@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: local
+    include: common
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/separtners
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+logging.level:
+  org.hibernate:
+    SQL: debug
+    type:
+      descriptor:
+        sql:
+          BasicBinder: TRACE
+
+server:
+  servlet:
+    encoding:
+      force: true
+      charset: UTF-8
+  port: 9232
+
+app:
+  host: http://localhost:5000
+  api-host: http://localhost:${server.port}
