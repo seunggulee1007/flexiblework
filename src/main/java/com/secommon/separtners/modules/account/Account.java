@@ -6,9 +6,11 @@ import com.secommon.separtners.infra.security.Jwt;
 import com.secommon.separtners.modules.account.enums.AccountRole;
 import com.secommon.separtners.modules.common.UpdatedEntity;
 import com.secommon.separtners.modules.commute.Commute;
-import com.secommon.separtners.modules.company.department.Department;
 import com.secommon.separtners.modules.company.employee.Employee;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -57,13 +59,6 @@ public class Account extends UpdatedEntity {
     @Builder.Default
     private Set<AccountRole> roles = Set.of(AccountRole.USER);
 
-    /**
-     * 부서
-     */
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "department_id")
-    private Department department;
-    
     /** 이메일 인증 여부 */
     private boolean emailVerified;
 
