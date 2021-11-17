@@ -5,6 +5,7 @@ import com.secommon.separtners.modules.flexiblework.form.FlexibleWorkForm;
 import com.secommon.separtners.modules.flexiblework.validator.FlexibleWorkFormValidator;
 import com.secommon.separtners.utils.ApiUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -15,6 +16,7 @@ import javax.validation.Valid;
 
 import static com.secommon.separtners.utils.ApiUtil.success;
 
+@Slf4j
 @BaseAnnotation
 @RequiredArgsConstructor
 public class FlexibleWorkController {

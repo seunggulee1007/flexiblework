@@ -4,7 +4,7 @@ import com.secommon.separtners.modules.common.EnumMapperType;
 
 public enum DailyWorkTime implements EnumMapperType {
 
-    SIX("6시간", false),
+    SIX("5시간", false),
     SEVEN("7시간", false),
     EIGHT("8시간", true),
     ;

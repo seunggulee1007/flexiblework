@@ -1,5 +1,6 @@
 package com.secommon.separtners.modules.flexiblework;
 
+import com.secommon.separtners.modules.common.UpdatedEntity;
 import com.secommon.separtners.modules.flexiblework.enums.DailyWorkTime;
 import com.secommon.separtners.modules.flexiblework.enums.FlexibleWorkType;
 import com.secommon.separtners.modules.flexiblework.enums.SettlementUnitPeriod;
@@ -18,7 +19,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Builder @Getter
 @AllArgsConstructor @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class FlexibleWork {
+public class FlexibleWork extends UpdatedEntity {
 
     /** 유연근무 일련번호 */
     @Id
@@ -28,6 +29,7 @@ public class FlexibleWork {
 
     /** 유연근무제도 명( 기본 주 52시간 ) */
     @Builder.Default
+    @Enumerated(EnumType.STRING)
     private FlexibleWorkType flexibleWorkType = FlexibleWorkType.WEEK_52;
 
     /** 유연근무 명칭 */
@@ -40,9 +42,11 @@ public class FlexibleWork {
     private Set<WorkDayOfWeek> workDayOfWeeks;
 
     /** 1일 근로시간 */
+    @Enumerated(EnumType.STRING)
     private DailyWorkTime dailyWorkTime;
 
     /** 정산 단위기간 */
+    @Enumerated(EnumType.STRING)
     private SettlementUnitPeriod settlementUnitPeriod;
 
     /** 적용기간 from */

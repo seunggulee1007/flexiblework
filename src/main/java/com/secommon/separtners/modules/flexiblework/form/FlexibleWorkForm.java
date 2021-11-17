@@ -1,5 +1,6 @@
 package com.secommon.separtners.modules.flexiblework.form;
 
+import com.secommon.separtners.modules.flexiblework.enums.DailyWorkTime;
 import com.secommon.separtners.modules.flexiblework.enums.FlexibleWorkType;
 import com.secommon.separtners.modules.flexiblework.enums.SettlementUnitPeriod;
 import com.secommon.separtners.modules.flexiblework.enums.WorkDayOfWeek;
@@ -28,6 +29,9 @@ public class FlexibleWorkForm {
     private String flexibleWorkName;
 
     private Set<WorkDayOfWeek> workDayOfWeekSet;
+
+    @NotNull(message = "1일 근로시간을 선택해 주세요.")
+    private DailyWorkTime dailyWorkTime;
 
     @NotNull(message = "정산 단위 기간을 선택해 주세요.")
     private SettlementUnitPeriod settlementUnitPeriod;

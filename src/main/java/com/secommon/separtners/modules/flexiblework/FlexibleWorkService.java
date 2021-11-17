@@ -13,12 +13,14 @@ import com.secommon.separtners.modules.flexiblework.repository.FlexibleWorkRepos
 import com.secommon.separtners.modules.flexiblework.repository.MandatoryTimeRepository;
 import com.secommon.separtners.modules.flexiblework.repository.RestTimeRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @BaseServiceAnnotation
 @RequiredArgsConstructor
 public class FlexibleWorkService {
@@ -84,9 +86,12 @@ public class FlexibleWorkService {
                 .flexibleWorkName( flexibleWorkForm.getFlexibleWorkName() )
                 .workDayOfWeeks( flexibleWorkForm.getWorkDayOfWeekSet() )
                 .settlementUnitPeriod( flexibleWorkForm.getSettlementUnitPeriod() )
+                .dailyWorkTime( flexibleWorkForm.getDailyWorkTime() )
                 .applyDateFrom( flexibleWorkForm.getApplyDateFrom() )
                 .applyDateTo( flexibleWorkForm.getApplyDateTo() )
                 .restExist( flexibleWorkForm.isRestExist() )
+                .startTime( flexibleWorkForm.getStartTime() )
+                .endTime( flexibleWorkForm.getEndTime() )
                 .mandatoryTimeExist( flexibleWorkForm.isMandatoryTimeExist() )
             .build();
         flexibleWork.setApplyDate();
