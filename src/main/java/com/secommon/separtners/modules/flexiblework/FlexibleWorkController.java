@@ -6,7 +6,6 @@ import com.secommon.separtners.modules.flexiblework.validator.FlexibleWorkFormVa
 import com.secommon.separtners.utils.ApiUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,11 +24,6 @@ public class FlexibleWorkController {
     @InitBinder("flexibleWorkForm")
     public void flexibleWorkFormInitBinder( WebDataBinder webDataBinder ) {
         webDataBinder.addValidators( flexibleWorkFormValidator );
-    }
-
-    @GetMapping("/flexible-work/codes")
-    public ApiUtil.ApiResult<FlexibleCodeDto> getFlexibleCodeList() {
-        return success(flexibleWorkService.getFlexibleCodeList());
     }
 
     /**

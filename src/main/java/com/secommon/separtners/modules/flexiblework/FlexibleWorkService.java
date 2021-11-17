@@ -1,11 +1,6 @@
 package com.secommon.separtners.modules.flexiblework;
 
 import com.secommon.separtners.infra.commons.BaseServiceAnnotation;
-import com.secommon.separtners.modules.common.EnumMapperValue;
-import com.secommon.separtners.modules.flexiblework.enums.DailyWorkTime;
-import com.secommon.separtners.modules.flexiblework.enums.FlexibleWorkType;
-import com.secommon.separtners.modules.flexiblework.enums.SettlementUnitPeriod;
-import com.secommon.separtners.modules.flexiblework.enums.WorkDayOfWeek;
 import com.secommon.separtners.modules.flexiblework.form.FlexibleWorkForm;
 import com.secommon.separtners.modules.flexiblework.form.MandatoryTimeForm;
 import com.secommon.separtners.modules.flexiblework.form.RestTimeForm;
@@ -15,9 +10,7 @@ import com.secommon.separtners.modules.flexiblework.repository.RestTimeRepositor
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @BaseServiceAnnotation
 @RequiredArgsConstructor
@@ -93,31 +86,5 @@ public class FlexibleWorkService {
         flexibleWorkRepository.save( flexibleWork );
         return flexibleWork;
     }
-
-    public FlexibleCodeDto getFlexibleCodeList() {
-        return FlexibleCodeDto.builder()
-                        .flexibleWorkTypeList(
-                            Arrays.stream( FlexibleWorkType.values() )
-                                    .map( EnumMapperValue::new )
-                                    .collect( Collectors.toList() )
-                        )
-                        .dailyWorkTimeList(
-                                Arrays.stream( DailyWorkTime.values() )
-                                        .map( EnumMapperValue::new )
-                                        .collect( Collectors.toList() )
-                        )
-                        .settlementUnitPeriodList(
-                                Arrays.stream( SettlementUnitPeriod.values() )
-                                        .map( EnumMapperValue::new )
-                                        .collect( Collectors.toList() )
-                        )
-                        .workDayOfWeekList(
-                                Arrays.stream( WorkDayOfWeek.values() )
-                                        .map( EnumMapperValue::new )
-                                        .collect( Collectors.toList() )
-                        )
-                .build();
-    }
-
 
 }
