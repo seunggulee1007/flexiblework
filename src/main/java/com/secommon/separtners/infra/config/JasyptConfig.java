@@ -11,7 +11,7 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class JasyptConfig {
 
-    @Bean("jasyptStringEncryptor")
+    @Bean
     public StringEncryptor stringEncryptor(Environment environment) {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
