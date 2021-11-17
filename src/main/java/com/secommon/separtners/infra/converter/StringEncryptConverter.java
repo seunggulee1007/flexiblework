@@ -2,8 +2,6 @@ package com.secommon.separtners.infra.converter;
 
 import lombok.RequiredArgsConstructor;
 import org.jasypt.encryption.StringEncryptor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
@@ -14,7 +12,7 @@ import java.util.Optional;
 public class StringEncryptConverter implements AttributeConverter<String, String> {
 
     private final StringEncryptor stringEncryptor;
-    
+
     @Override
     public String convertToDatabaseColumn ( String attribute ) {
         return Optional.ofNullable(attribute)

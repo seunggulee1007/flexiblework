@@ -62,7 +62,7 @@ public class ExceptionAdvice {
             HttpRequestMethodNotSupportedException.class
     })
     public ResponseEntity<?> handleBadRequestException(Exception e) {
-        log.debug("Bad request exception occurred: {}", e.getMessage(), e);
+        log.error("Bad request exception occurred: {}", e.getMessage(), e);
         if (e instanceof MethodArgumentNotValidException ) {
             return newResponse(
                     ((MethodArgumentNotValidException) e).getBindingResult().getAllErrors().get(0).getDefaultMessage(),
