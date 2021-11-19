@@ -4,7 +4,7 @@ import com.secommon.separtners.modules.common.EnumMapperType;
 
 public enum FlexibleWorkType implements EnumMapperType {
 
-    WEEK_52("주 52시간", false),
+    WEEK_52("주 52시간", true),
     ELASTIC("탄력근무제", false),
     CHOICE("선택적근무제", false),
     HOME("재택 근무제", false),

@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -66,10 +67,12 @@ public class FlexibleWork extends UpdatedEntity {
     private boolean mandatoryTimeExist;
 
     @OneToMany(mappedBy = "flexibleWork", fetch = LAZY)
-    private List<RestTime> restTimeList;
+    @Builder.Default
+    private List<RestTime> restTimeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "flexibleWork")
-    private List<MandatoryTime> mandatoryTimeList;
+    @Builder.Default
+    private List<MandatoryTime> mandatoryTimeList = new ArrayList<>();
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "flexible_work_group_id")

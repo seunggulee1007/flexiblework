@@ -4,6 +4,7 @@ package com.secommon.separtners.modules.flexiblework.validator;
 import com.secommon.separtners.modules.flexiblework.form.FlexibleWorkForm;
 import com.secommon.separtners.modules.flexiblework.form.MandatoryTimeForm;
 import com.secommon.separtners.modules.flexiblework.form.RestTimeForm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -12,6 +13,7 @@ import org.springframework.validation.Validator;
 import java.time.LocalTime;
 import java.util.List;
 
+@Slf4j
 @Component
 public class FlexibleWorkFormValidator implements Validator {
 
@@ -23,8 +25,9 @@ public class FlexibleWorkFormValidator implements Validator {
     @Override
     public void validate ( @NonNull Object target, @NonNull Errors errors ) {
         FlexibleWorkForm flexibleWorkForm = ( FlexibleWorkForm ) target;
-        List<MandatoryTimeForm> mandatoryTimeFormList = flexibleWorkForm.getMandatoryTimeFormList();
-        List<RestTimeForm> restTimeFormList = flexibleWorkForm.getRestTimeFormList();
+        log.error( "FlexibleWorkForm:: {}", flexibleWorkForm );
+        List<MandatoryTimeForm> mandatoryTimeFormList = flexibleWorkForm.getMandatoryTimeList();
+        List<RestTimeForm> restTimeFormList = flexibleWorkForm.getRestTimeList();
         if( flexibleWorkForm.isRestExist() && restTimeFormList.isEmpty() ) {
             errors.rejectValue( "restTimeList", "wrong.value", "휴게시간이 있는 경우 휴게시간이 입력되어야 합니다." );
         } else if ( flexibleWorkForm.isMandatoryTimeExist() && mandatoryTimeFormList.isEmpty()) {

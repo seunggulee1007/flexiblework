@@ -50,9 +50,9 @@ public class FlexibleWorkForm {
     private boolean mandatoryTimeExist;
 
     @Builder.Default
-    private List<RestTimeForm> restTimeFormList = new ArrayList<>();
+    private List<RestTimeForm> restTimeList = new ArrayList<>();
 
     @Builder.Default
-    private List<MandatoryTimeForm> mandatoryTimeFormList = new ArrayList<>();
+    private List<MandatoryTimeForm> mandatoryTimeList = new ArrayList<>();
 
 }

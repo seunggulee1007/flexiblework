@@ -41,7 +41,7 @@ public class FlexibleWorkService {
      */
     private void saveRestTime ( FlexibleWork flexibleWork, FlexibleWorkForm flexibleWorkForm ) {
         if( flexibleWorkForm.isRestExist() ) {
-            List<RestTimeForm> restTimeList = flexibleWorkForm.getRestTimeFormList();
+            List<RestTimeForm> restTimeList = flexibleWorkForm.getRestTimeList();
             List<RestTime> restTimes = new ArrayList<>();
             for ( RestTimeForm restTimeForm: restTimeList ) {
                 RestTime restTime;
@@ -66,7 +66,7 @@ public class FlexibleWorkService {
      */
     private void saveMandatoryTime ( FlexibleWork flexibleWork, FlexibleWorkForm flexibleWorkForm ) {
         if( flexibleWork.isMandatoryTimeExist() ) {
-            List<MandatoryTimeForm> mandatoryTimeList = flexibleWorkForm.getMandatoryTimeFormList();
+            List<MandatoryTimeForm> mandatoryTimeList = flexibleWorkForm.getMandatoryTimeList();
             List<MandatoryTime> mandatoryTimes = new ArrayList<>();
             for ( MandatoryTimeForm mandatoryTimeForm: mandatoryTimeList ) {
                 MandatoryTime mandatoryTime = MandatoryTime.builder()
