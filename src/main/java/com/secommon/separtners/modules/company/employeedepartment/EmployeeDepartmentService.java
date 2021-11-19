@@ -1,8 +1,9 @@
-package com.secommon.separtners.modules.company.mapping;
+package com.secommon.separtners.modules.company.employeedepartment;
 
 import com.secommon.separtners.infra.commons.BaseServiceAnnotation;
 import com.secommon.separtners.modules.company.department.Department;
 import com.secommon.separtners.modules.company.employee.Employee;
+import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartmentRepository;
 import lombok.RequiredArgsConstructor;
 
 @BaseServiceAnnotation

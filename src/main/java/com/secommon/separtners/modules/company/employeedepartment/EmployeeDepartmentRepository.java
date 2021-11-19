@@ -1,4 +1,4 @@
-package com.secommon.separtners.modules.company.mapping;
+package com.secommon.separtners.modules.company.employeedepartment;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;

@@ -3,8 +3,8 @@ package com.secommon.separtners.modules.company.employee;
 import com.secommon.separtners.modules.account.Account;
 import com.secommon.separtners.modules.common.UpdatedEntity;
 import com.secommon.separtners.modules.company.department.Department;
+import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartment;
 import com.secommon.separtners.modules.company.employeemanagement.EmployeeManagement;
-import com.secommon.separtners.modules.company.mapping.EmployeeDepartment;
 import com.secommon.separtners.modules.flexiblework.FlexibleWorkGroup;
 import lombok.*;
 
