@@ -8,7 +8,7 @@ import com.secommon.separtners.modules.company.employee.Employee;
 import com.secommon.separtners.modules.company.employee.repository.EmployeeRepository;
 import com.secommon.separtners.modules.company.employeemanagement.form.EmployeeForm;
 import com.secommon.separtners.modules.company.mapping.EmployeeDepartment;
-import com.secommon.separtners.modules.company.mapping.EmployeeDepartmentRepository;
+import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartmentRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
