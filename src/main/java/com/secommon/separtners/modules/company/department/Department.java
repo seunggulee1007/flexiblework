@@ -3,7 +3,6 @@ package com.secommon.separtners.modules.company.department;
 import com.secommon.separtners.modules.common.UpdatedEntity;
 import com.secommon.separtners.modules.company.departmenmanagement.DepartmentManagement;
 import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartment;
-import com.secommon.separtners.modules.flexiblework.FlexibleWorkGroup;
 import lombok.*;
 import org.springframework.util.StringUtils;
 
@@ -55,10 +54,6 @@ public class Department extends UpdatedEntity {
     @OneToMany(fetch = LAZY, mappedBy = "department")
     private List<DepartmentManagement> departmentManagementList;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "flexible_work_group_id")
-    private FlexibleWorkGroup flexibleWorkGroup;
-
     public void setSettingParent(Department department) {
         if(this.parent != null) {
             clearParent();
@@ -99,11 +94,6 @@ public class Department extends UpdatedEntity {
         if( this.active != departmentManagement.isActive() ) {
             this.active = departmentManagement.isActive();
         }
-    }
-
-    public void setWorkGroup ( FlexibleWorkGroup flexibleWorkGroup ) {
-        this.flexibleWorkGroup = flexibleWorkGroup;
-        this.flexibleWorkGroup.getDepartmentList().add( this );
     }
 
 }

@@ -5,8 +5,9 @@ import com.secommon.separtners.modules.common.UpdatedEntity;
 import com.secommon.separtners.modules.company.department.Department;
 import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartment;
 import com.secommon.separtners.modules.company.employeemanagement.EmployeeManagement;
-import com.secommon.separtners.modules.flexiblework.FlexibleWorkGroup;
+import com.secommon.separtners.modules.flexiblework.flexibleworkgroup.FlexibleWorkGroup;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
 
+@Slf4j
 @Entity
 @Builder
 @Getter
@@ -81,8 +83,14 @@ public class Employee extends UpdatedEntity {
     }
 
     public void setWorkGroup ( FlexibleWorkGroup flexibleWorkGroup ) {
-        this.flexibleWorkGroup.getEmployeeList().add( this );
         this.flexibleWorkGroup = flexibleWorkGroup;
+        if(!this.flexibleWorkGroup.getEmployeeList().contains( this )) {
+            this.flexibleWorkGroup.getEmployeeList().add( this );
+        }
     }
 
+    public void removeWorkGroup () {
+        this.flexibleWorkGroup.getEmployeeList().remove( this );
+        this.flexibleWorkGroup = null;
+    }
 }

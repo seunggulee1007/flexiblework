@@ -59,6 +59,7 @@ public class AppConfig {
                     if (accounts.isEmpty()) {
                         Account account = Account.builder()
                                 .email( "leesg107@naver.com" )
+                                .userName( "이승구" )
                                 .password( passwordEncoder.encode( "1q2w3e$R" ) )
                                 .emailVerified( true )
                                 .joinedAt( LocalDateTime.now() )

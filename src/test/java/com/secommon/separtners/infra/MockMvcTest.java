@@ -1,5 +1,7 @@
 package com.secommon.separtners.infra;
 
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -16,5 +18,6 @@ import java.lang.annotation.Target;
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public @interface MockMvcTest {
 }

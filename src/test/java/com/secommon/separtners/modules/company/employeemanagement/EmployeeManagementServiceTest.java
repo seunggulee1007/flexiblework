@@ -6,9 +6,9 @@ import com.secommon.separtners.modules.company.department.Department;
 import com.secommon.separtners.modules.company.department.repository.DepartmentRepository;
 import com.secommon.separtners.modules.company.employee.Employee;
 import com.secommon.separtners.modules.company.employee.repository.EmployeeRepository;
-import com.secommon.separtners.modules.company.employeemanagement.form.EmployeeForm;
-import com.secommon.separtners.modules.company.mapping.EmployeeDepartment;
+import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartment;
 import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartmentRepository;
+import com.secommon.separtners.modules.company.employeemanagement.form.EmployeeForm;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @MockMvcTest
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class EmployeeManagementServiceTest extends AbstractContainerBaseTest {
 
     @Autowired
@@ -164,5 +163,5 @@ class EmployeeManagementServiceTest extends AbstractContainerBaseTest {
         assertEquals( employeeDepartment.getEmployee(), employee );
 
     }
-
+    
 }
