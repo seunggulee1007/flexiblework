@@ -1,9 +1,9 @@
-package com.secommon.separtners.modules.flexiblework.form;
+package com.secommon.separtners.modules.flexiblework.flexiblework.form;
 
-import com.secommon.separtners.modules.flexiblework.enums.DailyWorkTime;
-import com.secommon.separtners.modules.flexiblework.enums.FlexibleWorkType;
-import com.secommon.separtners.modules.flexiblework.enums.SettlementUnitPeriod;
-import com.secommon.separtners.modules.flexiblework.enums.WorkDayOfWeek;
+import com.secommon.separtners.modules.flexiblework.flexiblework.enums.DailyWorkTime;
+import com.secommon.separtners.modules.flexiblework.flexiblework.enums.FlexibleWorkType;
+import com.secommon.separtners.modules.flexiblework.flexiblework.enums.SettlementUnitPeriod;
+import com.secommon.separtners.modules.flexiblework.flexiblework.enums.WorkDayOfWeek;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -48,6 +48,12 @@ public class FlexibleWorkForm {
     private boolean restExist;
 
     private boolean mandatoryTimeExist;
+
+    /** 사용 여부 */
+    private boolean active;
+
+    /** 마감 여부 */
+    private boolean close;
 
     @Builder.Default
     private List<RestTimeForm> restTimeList = new ArrayList<>();

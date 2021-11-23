@@ -1,4 +1,4 @@
-package com.secommon.separtners.modules.flexiblework;
+package com.secommon.separtners.modules.flexiblework.flexiblework;
 
 import com.secommon.separtners.modules.common.EnumMapperValue;
 import lombok.AllArgsConstructor;

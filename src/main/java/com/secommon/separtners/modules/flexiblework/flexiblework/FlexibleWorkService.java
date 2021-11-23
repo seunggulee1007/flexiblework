@@ -1,19 +1,23 @@
-package com.secommon.separtners.modules.flexiblework;
+package com.secommon.separtners.modules.flexiblework.flexiblework;
 
 import com.secommon.separtners.infra.commons.BaseServiceAnnotation;
 import com.secommon.separtners.modules.common.EnumMapperValue;
-import com.secommon.separtners.modules.flexiblework.enums.DailyWorkTime;
-import com.secommon.separtners.modules.flexiblework.enums.FlexibleWorkType;
-import com.secommon.separtners.modules.flexiblework.enums.SettlementUnitPeriod;
-import com.secommon.separtners.modules.flexiblework.enums.WorkDayOfWeek;
-import com.secommon.separtners.modules.flexiblework.form.FlexibleWorkForm;
-import com.secommon.separtners.modules.flexiblework.form.MandatoryTimeForm;
-import com.secommon.separtners.modules.flexiblework.form.RestTimeForm;
-import com.secommon.separtners.modules.flexiblework.repository.FlexibleWorkRepository;
-import com.secommon.separtners.modules.flexiblework.repository.MandatoryTimeRepository;
-import com.secommon.separtners.modules.flexiblework.repository.RestTimeRepository;
+import com.secommon.separtners.modules.flexiblework.flexiblework.dto.FlexibleWorkDto;
+import com.secommon.separtners.modules.flexiblework.flexiblework.enums.DailyWorkTime;
+import com.secommon.separtners.modules.flexiblework.flexiblework.enums.FlexibleWorkType;
+import com.secommon.separtners.modules.flexiblework.flexiblework.enums.SettlementUnitPeriod;
+import com.secommon.separtners.modules.flexiblework.flexiblework.enums.WorkDayOfWeek;
+import com.secommon.separtners.modules.flexiblework.flexiblework.form.FlexibleWorkForm;
+import com.secommon.separtners.modules.flexiblework.flexiblework.form.FlexibleWorkSearchForm;
+import com.secommon.separtners.modules.flexiblework.flexiblework.form.MandatoryTimeForm;
+import com.secommon.separtners.modules.flexiblework.flexiblework.form.RestTimeForm;
+import com.secommon.separtners.modules.flexiblework.flexiblework.repository.FlexibleWorkRepository;
+import com.secommon.separtners.modules.flexiblework.flexiblework.repository.MandatoryTimeRepository;
+import com.secommon.separtners.modules.flexiblework.flexiblework.repository.RestTimeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +33,19 @@ public class FlexibleWorkService {
     private final RestTimeRepository restTimeRepository;
     private final MandatoryTimeRepository mandatoryTimeRepository;
 
+    /**
+     * 유연근무 유형 조회
+     * @param searchForm : 검색 조건
+     * @param pageable : 페이징 조건
+     */
+    public Page<FlexibleWorkDto> findFlexibleWorkByPageable( FlexibleWorkSearchForm searchForm, Pageable pageable) {
+        return flexibleWorkRepository.findAllBySearchForm( searchForm, pageable );
+    }
+
+    /**
+     * 저장 프로세스
+     * @param flexibleWorkForm : 유연근무 폼
+     */
     public Long saveNewFlexibleWork( FlexibleWorkForm flexibleWorkForm ) {
         FlexibleWork flexibleWork = saveFlexibleWork( flexibleWorkForm );
         saveMandatoryTime( flexibleWork, flexibleWorkForm );
@@ -80,6 +97,10 @@ public class FlexibleWorkService {
         }
     }
 
+    /**
+     * 유연근무 저장
+     * @param flexibleWorkForm
+     */
     private FlexibleWork saveFlexibleWork ( FlexibleWorkForm flexibleWorkForm ) {
         FlexibleWork flexibleWork = FlexibleWork.builder()
                 .flexibleWorkType( flexibleWorkForm.getFlexibleWorkType() )
@@ -99,6 +120,9 @@ public class FlexibleWorkService {
         return flexibleWork;
     }
 
+    /**
+     * enum 을 코드로 변환
+     */
     public FlexibleCodeDto getFlexibleCodeList() {
         return FlexibleCodeDto.builder()
                         .flexibleWorkTypeList(

@@ -1,21 +1,21 @@
-package com.secommon.separtners.modules.flexiblework.enums;
+package com.secommon.separtners.modules.flexiblework.flexiblework.enums;
 
 import com.secommon.separtners.modules.common.EnumMapperType;
 
-public enum DailyWorkTime implements EnumMapperType {
+public enum SettlementUnitPeriod implements EnumMapperType {
 
-    SIX("5시간", false),
-    SEVEN("7시간", false),
-    EIGHT("8시간", true),
+    ONE_WEEK("1주", false),
+    TWO_WEEK("2주", false),
+    ONE_MONTH("1개월", true),
+    THREE_MONTH("3개월", false),
     ;
 
     String codeName;
     boolean defaultValue;
-    DailyWorkTime(String codeName, boolean defaultValue) {
+    SettlementUnitPeriod(String codeName, boolean defaultValue) {
         this.codeName = codeName;
         this.defaultValue = defaultValue;
     }
-
 
     @Override
     public String getCode () {

@@ -1,16 +1,16 @@
-package com.secommon.separtners.modules.flexiblework.enums;
+package com.secommon.separtners.modules.flexiblework.flexiblework.enums;
 
 import com.secommon.separtners.modules.common.EnumMapperType;
 
 public enum WorkDayOfWeek implements EnumMapperType {
 
-    MONDAY("월요일", false),
-    TUESDAY("화요일", false),
-    WEDNESDAY("수요일", false),
-    THURSDAY("목요일", false),
-    FRIDAY("금요일", false),
-    SATURDAY("토요일", false),
-    SUNDAY("일요일", false),
+    MONDAY("월", false),
+    TUESDAY("화", false),
+    WEDNESDAY("수", false),
+    THURSDAY("목", false),
+    FRIDAY("금", false),
+    SATURDAY("토", false),
+    SUNDAY("일", false),
     ;
     String codeName;
     boolean defaultValue;

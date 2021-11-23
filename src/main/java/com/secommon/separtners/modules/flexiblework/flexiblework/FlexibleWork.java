@@ -1,10 +1,11 @@
-package com.secommon.separtners.modules.flexiblework;
+package com.secommon.separtners.modules.flexiblework.flexiblework;
 
 import com.secommon.separtners.modules.common.UpdatedEntity;
-import com.secommon.separtners.modules.flexiblework.enums.DailyWorkTime;
-import com.secommon.separtners.modules.flexiblework.enums.FlexibleWorkType;
-import com.secommon.separtners.modules.flexiblework.enums.SettlementUnitPeriod;
-import com.secommon.separtners.modules.flexiblework.enums.WorkDayOfWeek;
+import com.secommon.separtners.modules.flexiblework.flexibleworkgroup.FlexibleWorkGroup;
+import com.secommon.separtners.modules.flexiblework.flexiblework.enums.DailyWorkTime;
+import com.secommon.separtners.modules.flexiblework.flexiblework.enums.FlexibleWorkType;
+import com.secommon.separtners.modules.flexiblework.flexiblework.enums.SettlementUnitPeriod;
+import com.secommon.separtners.modules.flexiblework.flexiblework.enums.WorkDayOfWeek;
 import lombok.*;
 
 import javax.persistence.*;
@@ -66,6 +67,12 @@ public class FlexibleWork extends UpdatedEntity {
     /** 의무 시간 유무 */
     private boolean mandatoryTimeExist;
 
+    /** 사용 여부 */
+    private boolean active = false;
+
+    /** 마감 여부 */
+    private boolean close = false;
+
     @OneToMany(mappedBy = "flexibleWork", fetch = LAZY)
     @Builder.Default
     private List<RestTime> restTimeList = new ArrayList<>();
@@ -74,9 +81,9 @@ public class FlexibleWork extends UpdatedEntity {
     @Builder.Default
     private List<MandatoryTime> mandatoryTimeList = new ArrayList<>();
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "flexible_work_group_id")
-    private FlexibleWorkGroup flexibleWorkGroup;
+    @OneToMany(mappedBy = "flexibleWork", fetch = LAZY)
+    @Builder.Default
+    private List<FlexibleWorkGroup> flexibleWorkGroupList = new ArrayList<>();
 
     public void setApplyDate () {
         if(this.applyDateTo == null) {

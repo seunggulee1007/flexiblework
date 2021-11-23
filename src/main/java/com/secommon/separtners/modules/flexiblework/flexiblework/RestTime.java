@@ -1,6 +1,6 @@
-package com.secommon.separtners.modules.flexiblework;
+package com.secommon.separtners.modules.flexiblework.flexiblework;
 
-import com.secommon.separtners.modules.flexiblework.form.RestTimeForm;
+import com.secommon.separtners.modules.flexiblework.flexiblework.form.RestTimeForm;
 import lombok.*;
 
 import javax.persistence.*;

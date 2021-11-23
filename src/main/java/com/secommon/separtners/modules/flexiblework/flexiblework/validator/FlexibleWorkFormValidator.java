@@ -1,9 +1,9 @@
-package com.secommon.separtners.modules.flexiblework.validator;
+package com.secommon.separtners.modules.flexiblework.flexiblework.validator;
 
 
-import com.secommon.separtners.modules.flexiblework.form.FlexibleWorkForm;
-import com.secommon.separtners.modules.flexiblework.form.MandatoryTimeForm;
-import com.secommon.separtners.modules.flexiblework.form.RestTimeForm;
+import com.secommon.separtners.modules.flexiblework.flexiblework.form.FlexibleWorkForm;
+import com.secommon.separtners.modules.flexiblework.flexiblework.form.MandatoryTimeForm;
+import com.secommon.separtners.modules.flexiblework.flexiblework.form.RestTimeForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
-package com.secommon.separtners.modules.flexiblework.repository;
+package com.secommon.separtners.modules.flexiblework.flexiblework.repository;
 
-import com.secommon.separtners.modules.flexiblework.RestTime;
+import com.secommon.separtners.modules.flexiblework.flexiblework.RestTime;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

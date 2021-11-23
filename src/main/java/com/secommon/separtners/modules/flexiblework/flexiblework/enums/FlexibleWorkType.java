@@ -1,4 +1,4 @@
-package com.secommon.separtners.modules.flexiblework.enums;
+package com.secommon.separtners.modules.flexiblework.flexiblework.enums;
 
 import com.secommon.separtners.modules.common.EnumMapperType;
 
