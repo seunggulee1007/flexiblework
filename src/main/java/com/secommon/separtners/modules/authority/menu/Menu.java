@@ -1,5 +1,6 @@
 package com.secommon.separtners.modules.authority.menu;
 
+import com.secommon.separtners.modules.authority.menu.form.MenuForm;
 import com.secommon.separtners.modules.authority.menuauthority.MenuAuthority;
 import lombok.*;
 
@@ -26,6 +27,16 @@ public class Menu {
     /** 사용 여부 */
     private boolean active;
 
+    /** 순서 */
+    private int order;
+
+    /** 메뉴 경로 */
+    private String menuPath;
+
+    /** 페이지 여부 */
+    @Builder.Default
+    private boolean page = false;
+
     /** 상위 메뉴 */
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "parent_id")
@@ -35,7 +46,28 @@ public class Menu {
     @OneToMany(mappedBy = "parent", fetch = LAZY)
     private List<Menu> children = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(fetch = LAZY)
-    List<MenuAuthority> menuAuthorityList;
+    List<MenuAuthority> menuAuthorityList = new ArrayList<>();
+
+    public void updateMenu ( MenuForm menuForm ) {
+        this.menuName = menuForm.getMenuName();
+        this.active = menuForm.isActive();
+        this.page = menuForm.isPage();
+        this.menuPath = menuForm.getMenuPath();
+        this.order = menuForm.getOrder();
+    }
+
+    public void updateParent ( Menu parent ) {
+        this.parent.getChildren().remove( this );
+        this.parent = parent;
+        if(!this.parent.getChildren().contains( this )) {
+            this.parent.getChildren().add( this );
+        }
+    }
+
+    public void updateOrder ( int order ) {
+        this.order = order;
+    }
 
 }

@@ -4,6 +4,9 @@ import com.secommon.separtners.infra.properties.AppProperties;
 import com.secommon.separtners.modules.account.Account;
 import com.secommon.separtners.modules.account.enums.AccountRole;
 import com.secommon.separtners.modules.account.repository.AccountRepository;
+import com.secommon.separtners.modules.authority.menu.Menu;
+import com.secommon.separtners.modules.authority.menu.MenuRepository;
+import com.secommon.separtners.modules.authority.menu.MenuService;
 import com.secommon.separtners.modules.company.department.Department;
 import com.secommon.separtners.modules.company.department.repository.DepartmentRepository;
 import com.secommon.separtners.modules.company.employee.Employee;
@@ -44,6 +47,9 @@ public class AppConfig {
             EmployeeRepository employeeRepository;
             @Autowired
             EmployeeDepartmentRepository employeeDepartmentRepository;
+            @Autowired
+            MenuRepository menuRepository;
+
             @Override
             @Transactional
             public void run ( ApplicationArguments args ) throws Exception {
@@ -74,6 +80,14 @@ public class AppConfig {
                         saveEmployeeDepartment( department, employee );
                     }
                 } // end if
+                List<Menu> menuList = menuRepository.findAll();
+                if(menuList.isEmpty()) {
+                    Menu menu = Menu.builder()
+                            .menuName( appProperties.getCompanyName() )
+                            .order( 1 )
+                            .build();
+                    menuRepository.save( menu );
+                }
             } // end run
 
             private void saveEmployeeDepartment ( Department department, Employee employee ) {
