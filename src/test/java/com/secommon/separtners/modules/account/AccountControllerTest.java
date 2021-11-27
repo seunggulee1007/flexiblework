@@ -4,6 +4,7 @@ import com.secommon.separtners.infra.AbstractContainerBaseTest;
 import com.secommon.separtners.infra.MockMvcTest;
 import com.secommon.separtners.modules.account.form.SignUpForm;
 import com.secommon.separtners.modules.account.repository.AccountRepository;
+import com.secommon.separtners.modules.company.employee.Position;
 import com.secommon.separtners.modules.main.form.LoginForm;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
@@ -37,6 +38,7 @@ class AccountControllerTest extends AbstractContainerBaseTest {
                 .email( "leesg107@naver.com" )
                 .password( "qlalfqjsgh1!" )
                 .userName( "관리자" )
+                .position( Position.DIRECTOR )
                 .admin( true )
                 .build();
         this.mockMvc.perform( post("/api/account/sign-up")

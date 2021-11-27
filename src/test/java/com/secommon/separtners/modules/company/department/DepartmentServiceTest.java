@@ -24,6 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class DepartmentServiceTest extends AbstractContainerBaseTest {
 
     @Autowired
+    DepartmentService departmentService;
+    @Autowired
     DepartmentRepository departmentRepository;
 
     @DisplayName("부서등록이 정상적일때")
@@ -39,17 +41,9 @@ class DepartmentServiceTest extends AbstractContainerBaseTest {
                 .rightNow( true )
             .build();
         // when
-        this.mockMvc.perform( post("/api/department")
-                .contentType( MediaType.APPLICATION_JSON )
-                .content( this.objectMapper.writeValueAsString( form ) )
-        )
-                .andDo( print() )
-                .andExpect( status().isOk() )
-                .andExpect( jsonPath( "response" ).isNumber() )
-                .andExpect( jsonPath( "response" ).value( 2L ) )
-                .andExpect( jsonPath( "success" ).value( true ) )
-                ;
-        Optional<Department> optionalDepartment = departmentRepository.findById( 2L );
+        Long newDepartment = departmentService.createNewDepartment( form );
+
+        Optional<Department> optionalDepartment = departmentRepository.findById( newDepartment );
         assertTrue( optionalDepartment.isPresent() );
         assertNotNull( optionalDepartment.orElse( null ) );
         Department department = optionalDepartment.get();
@@ -63,33 +57,6 @@ class DepartmentServiceTest extends AbstractContainerBaseTest {
                 .departmentName( "Separtners" )
                 .build();
         departmentRepository.save( department );
-    }
-
-    @DisplayName("부서등록 실패 - 잘못된 입력값.")
-    @WithMockJwtAuthentication
-    @Test
-    @Order( 2 )
-    void  registerDepartment_fail_wrong_input () throws Exception {
-        // given
-        DepartmentForm form = DepartmentForm.builder()
-                .departmentName( "영업부서" )
-                .parentId( 1L )
-                .build();
-        // when
-        this.mockMvc.perform( post("/api/department")
-                        .contentType( MediaType.APPLICATION_JSON )
-                        .content( this.objectMapper.writeValueAsString( form ) )
-                )
-                .andDo( print() )
-                .andExpect( status().isBadRequest() )
-                .andExpect( jsonPath( "response" ).isEmpty() )
-                .andExpect( jsonPath( "success" ).value( false ) )
-                .andExpect( jsonPath( "message" ).value( "적용일자가 누락되었습니다." ) )
-        ;
-        // then
-        Optional<Department> optionalDepartment = departmentRepository.findById( 3L );
-        assertTrue( optionalDepartment.isEmpty() );
-        assertThrows( BadRequestException.class, ()-> optionalDepartment.orElseThrow(()-> new BadRequestException("없는걸 왜 꺼낼라 그러냐")) );
     }
 
 }

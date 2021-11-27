@@ -2,6 +2,7 @@ package com.secommon.separtners.modules.account;
 
 import com.secommon.separtners.infra.security.Jwt;
 import com.secommon.separtners.modules.account.enums.AccountRole;
+import com.secommon.separtners.modules.company.employee.Position;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -47,9 +48,15 @@ public class AccountDto {
 
     private String profileImage;
 
+    private String position;
+
+    private String departmentName;
+
     public AccountDto(Account account) {
-        copyProperties(account, this, "employee");
+        copyProperties(account, this);
         this.accountId = account.getId();
+        this.position = account.getEmployee().getPosition().getTitle();
+        this.departmentName = account.getEmployee().getEmployeeDepartmentList().isEmpty() ? "" : account.getEmployee().getEmployeeDepartmentList().get( 0 ).getDepartment().getDepartmentName();
     }
 
     public void generateAccessToken ( Jwt jwt) {

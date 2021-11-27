@@ -2,8 +2,7 @@ package com.secommon.separtners.modules.company.department;
 
 import com.secommon.separtners.modules.common.UpdatedEntity;
 import com.secommon.separtners.modules.company.departmenmanagement.DepartmentManagement;
-import com.secommon.separtners.modules.company.mapping.EmployeeDepartment;
-import com.secommon.separtners.modules.flexiblework.FlexibleWorkGroup;
+import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartment;
 import lombok.*;
 import org.springframework.util.StringUtils;
 
@@ -42,22 +41,18 @@ public class Department extends UpdatedEntity {
     private Department parent;
 
     /** 하위 부서 */
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent", fetch = LAZY)
     @Builder.Default
     private List<Department> child = new ArrayList<>();
 
     /** 사원 리스트 */
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", fetch = LAZY)
     @Builder.Default
     private List<EmployeeDepartment> employeeDepartmentList = new ArrayList<>();
 
     /** 해당 부서 관리 리스트 */
     @OneToMany(fetch = LAZY, mappedBy = "department")
     private List<DepartmentManagement> departmentManagementList;
-
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "flexible_work_group_id")
-    private FlexibleWorkGroup flexibleWorkGroup;
 
     public void setSettingParent(Department department) {
         if(this.parent != null) {
@@ -99,11 +94,6 @@ public class Department extends UpdatedEntity {
         if( this.active != departmentManagement.isActive() ) {
             this.active = departmentManagement.isActive();
         }
-    }
-
-    public void setWorkGroup ( FlexibleWorkGroup flexibleWorkGroup ) {
-        this.flexibleWorkGroup = flexibleWorkGroup;
-        this.flexibleWorkGroup.getDepartmentList().add( this );
     }
 
 }

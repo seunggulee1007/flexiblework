@@ -1,7 +1,7 @@
 package com.secommon.separtners.modules.company.employee;
 
 import com.secommon.separtners.modules.account.Account;
-import com.secommon.separtners.modules.company.mapping.EmployeeDepartment;
+import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartment;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

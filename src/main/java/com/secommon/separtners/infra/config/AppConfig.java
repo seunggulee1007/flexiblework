@@ -4,12 +4,15 @@ import com.secommon.separtners.infra.properties.AppProperties;
 import com.secommon.separtners.modules.account.Account;
 import com.secommon.separtners.modules.account.enums.AccountRole;
 import com.secommon.separtners.modules.account.repository.AccountRepository;
+import com.secommon.separtners.modules.authority.menu.Menu;
+import com.secommon.separtners.modules.authority.menu.MenuRepository;
+import com.secommon.separtners.modules.authority.menu.MenuService;
 import com.secommon.separtners.modules.company.department.Department;
 import com.secommon.separtners.modules.company.department.repository.DepartmentRepository;
 import com.secommon.separtners.modules.company.employee.Employee;
 import com.secommon.separtners.modules.company.employee.repository.EmployeeRepository;
-import com.secommon.separtners.modules.company.mapping.EmployeeDepartment;
-import com.secommon.separtners.modules.company.mapping.EmployeeDepartmentRepository;
+import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartment;
+import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -44,6 +47,9 @@ public class AppConfig {
             EmployeeRepository employeeRepository;
             @Autowired
             EmployeeDepartmentRepository employeeDepartmentRepository;
+            @Autowired
+            MenuRepository menuRepository;
+
             @Override
             @Transactional
             public void run ( ApplicationArguments args ) throws Exception {
@@ -59,6 +65,7 @@ public class AppConfig {
                     if (accounts.isEmpty()) {
                         Account account = Account.builder()
                                 .email( "leesg107@naver.com" )
+                                .userName( "이승구" )
                                 .password( passwordEncoder.encode( "1q2w3e$R" ) )
                                 .emailVerified( true )
                                 .joinedAt( LocalDateTime.now() )
@@ -73,6 +80,14 @@ public class AppConfig {
                         saveEmployeeDepartment( department, employee );
                     }
                 } // end if
+                List<Menu> menuList = menuRepository.findAll();
+                if(menuList.isEmpty()) {
+                    Menu menu = Menu.builder()
+                            .menuName( appProperties.getCompanyName() )
+                            .orderNumber( 1 )
+                            .build();
+                    menuRepository.save( menu );
+                }
             } // end run
 
             private void saveEmployeeDepartment ( Department department, Employee employee ) {

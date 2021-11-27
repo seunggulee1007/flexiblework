@@ -4,19 +4,25 @@ import com.secommon.separtners.infra.advice.exceptions.BadRequestException;
 import com.secommon.separtners.infra.commons.enums.ErrorMessage;
 import com.secommon.separtners.infra.security.Jwt;
 import com.secommon.separtners.modules.account.enums.AccountRole;
+import com.secommon.separtners.modules.authority.authoritygroup.AuthorityGroup;
+import com.secommon.separtners.modules.authority.authoritygroup.AuthorityGroupAccount;
 import com.secommon.separtners.modules.common.UpdatedEntity;
 import com.secommon.separtners.modules.commute.Commute;
-import com.secommon.separtners.modules.company.department.Department;
 import com.secommon.separtners.modules.company.employee.Employee;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -57,13 +63,6 @@ public class Account extends UpdatedEntity {
     @Builder.Default
     private Set<AccountRole> roles = Set.of(AccountRole.USER);
 
-    /**
-     * 부서
-     */
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "department_id")
-    private Department department;
-    
     /** 이메일 인증 여부 */
     private boolean emailVerified;
 
@@ -79,28 +78,23 @@ public class Account extends UpdatedEntity {
     /** 마지막 로그인 일자 */
     private LocalDateTime lastLoginAt;
 
+    /** 프로필 이미지 */
     @Lob @Basic
     private String profileImage;
 
+    /** 출퇴근 기록 */
     @OneToMany(mappedBy = "account", fetch = LAZY)
     private List<Commute> commutes;
 
+    /** 사원 정보 */
     @OneToOne(fetch = LAZY, mappedBy = "account")
     private Employee employee;
 
-    @Override
-    public boolean equals ( Object o ) {
-        if ( this == o ) return true;
-        if ( o == null || Hibernate.getClass( this ) != Hibernate.getClass( o ) ) return false;
-        Account account = ( Account ) o;
-        return Objects.equals( id, account.id );
-    }
+    @OneToMany(mappedBy = "account", fetch = LAZY)
+    @Builder.Default
+    private List<AuthorityGroupAccount> authorityGroupAccountList = new ArrayList<>();
 
-    @Override
-    public int hashCode () {
-        return 0;
-    }
-
+    /** 로그인 */
     public void login( PasswordEncoder passwordEncoder, String credentials) {
         if (!passwordEncoder.matches(credentials, this.password)) {
             this.loginFailCount++;
@@ -132,19 +126,23 @@ public class Account extends UpdatedEntity {
         this.emailCheckToken = jwt.createEmailToken(claims);
     }
 
+    /** 이메일 토큰 유효성 체크 */
     public boolean isValidEmailToken ( Jwt jwt, String token ) {
         return jwt.validateToken( token );
     }
 
+    /** 로그인 완료 */
     public void completeSignUp () {
         this.emailVerified = true;
         this.joinedAt = LocalDateTime.now();
     }
 
+    /** 비밀번호 변경 */
     public void changePassword ( String password ) {
         this.password = password;
     }
 
+    /** 프로필 사진 변경 */
     public void changeProfileImage ( String profileImage ) {
         this.profileImage = profileImage;
     }
@@ -152,6 +150,29 @@ public class Account extends UpdatedEntity {
     public void matchingEmployee(Employee employee) {
         this.employee = employee;
         employee.matchingAccount(this);
+    }
+
+    @Override
+    public boolean equals ( Object o ) {
+        if ( this == o ) return true;
+        if ( o == null || Hibernate.getClass( this ) != Hibernate.getClass( o ) ) return false;
+        Account account = ( Account ) o;
+        return Objects.equals( id, account.id );
+    }
+
+    @Override
+    public int hashCode () {
+        return 0;
+    }
+
+    public void removeAuthorityGroup ( AuthorityGroup authorityGroup ) {
+        this.authorityGroupAccountList.stream()
+                .filter(
+                        authorityGroupAccount -> authorityGroupAccount.getAccount() == this
+                                && authorityGroupAccount.getAuthorityGroup() == authorityGroup )
+                .findFirst()
+                .orElseThrow()
+            .remove();
     }
 
 }

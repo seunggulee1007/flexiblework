@@ -1,6 +1,5 @@
 package com.secommon.separtners.modules.company.department;
 
-import com.secommon.separtners.modules.account.AccountDto;
 import com.secommon.separtners.modules.company.employee.EmployeeDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,8 +34,8 @@ public class DepartmentDto {
         if(department.getParent() != null) {
             this.parentId = department.getParent().getId();
         }
-        children = department.getChild().stream().map( DepartmentDto::new ).collect( Collectors.toList());
-        employeeDtoList = department.getEmployeeDepartmentList().stream().map( employeeDepartment -> new EmployeeDto(employeeDepartment.getEmployee()) ).collect( Collectors.toList());
+        this.children = department.getChild().stream().map( DepartmentDto::new ).collect( Collectors.toList());
+        this.employeeDtoList = department.getEmployeeDepartmentList().stream().map( employeeDepartment -> new EmployeeDto(employeeDepartment.getEmployee()) ).collect( Collectors.toList());
     }
 
 }

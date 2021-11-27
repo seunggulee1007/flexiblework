@@ -5,10 +5,10 @@ import com.secommon.separtners.modules.company.department.Department;
 import com.secommon.separtners.modules.company.department.repository.DepartmentRepository;
 import com.secommon.separtners.modules.company.employee.Employee;
 import com.secommon.separtners.modules.company.employee.repository.EmployeeRepository;
+import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartment;
 import com.secommon.separtners.modules.company.employeemanagement.form.EmployeeForm;
-import com.secommon.separtners.modules.company.mapping.EmployeeDepartment;
-import com.secommon.separtners.modules.company.mapping.EmployeeDepartmentRepository;
-import com.secommon.separtners.modules.company.mapping.EmployeeDepartmentService;
+import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartmentRepository;
+import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartmentService;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
