@@ -36,7 +36,7 @@ public class MenuService {
         Menu menu = Menu.builder()
                 .menuName( menuForm.getMenuName() )
                 .active( menuForm.isActive() )
-                .order( menuForm.getOrder() )
+                .orderNumber( menuForm.getOrder() )
                 .page( menuForm.isPage() )
                 .menuPath( menuForm.getMenuPath() )
                 .build();

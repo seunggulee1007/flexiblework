@@ -28,7 +28,7 @@ public class Menu {
     private boolean active;
 
     /** 순서 */
-    private int order;
+    private int orderNumber;
 
     /** 메뉴 경로 */
     private String menuPath;
@@ -47,7 +47,7 @@ public class Menu {
     private List<Menu> children = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(fetch = LAZY)
+    @OneToMany(mappedBy = "menu", fetch = LAZY)
     List<MenuAuthority> menuAuthorityList = new ArrayList<>();
 
     public void updateMenu ( MenuForm menuForm ) {
@@ -55,7 +55,7 @@ public class Menu {
         this.active = menuForm.isActive();
         this.page = menuForm.isPage();
         this.menuPath = menuForm.getMenuPath();
-        this.order = menuForm.getOrder();
+        this.orderNumber = menuForm.getOrder();
     }
 
     public void updateParent ( Menu parent ) {
@@ -67,7 +67,7 @@ public class Menu {
     }
 
     public void updateOrder ( int order ) {
-        this.order = order;
+        this.orderNumber = order;
     }
 
 }

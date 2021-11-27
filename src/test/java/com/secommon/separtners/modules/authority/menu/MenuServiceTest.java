@@ -22,7 +22,10 @@ class MenuServiceTest extends AbstractContainerBaseTest {
         // given
         MenuForm menuForm = MenuForm.builder()
                 .menuName( "첫번째 메뉴" )
+                .page(false)
+                .parentId(1L)
                 .build();
+        Long savedMenuId = menuService.saveNewMenu(menuForm);
         // when
 
         // then

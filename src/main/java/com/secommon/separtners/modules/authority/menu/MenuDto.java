@@ -36,7 +36,7 @@ public class MenuDto {
     public MenuDto( Menu menu ) {
         this.menuId = menu.getId();
         this.menuName = menu.getMenuName();
-        this.order = menu.getOrder();
+        this.order = menu.getOrderNumber();
         this.page = menu.isPage();
         this.menuPath = menu.getMenuPath();
         if( StringUtils.hasText(menu.getMenuPath())) {

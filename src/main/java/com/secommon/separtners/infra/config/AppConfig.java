@@ -84,7 +84,7 @@ public class AppConfig {
                 if(menuList.isEmpty()) {
                     Menu menu = Menu.builder()
                             .menuName( appProperties.getCompanyName() )
-                            .order( 1 )
+                            .orderNumber( 1 )
                             .build();
                     menuRepository.save( menu );
                 }
