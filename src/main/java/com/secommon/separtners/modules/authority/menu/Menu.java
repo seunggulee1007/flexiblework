@@ -55,11 +55,13 @@ public class Menu {
         this.active = menuForm.isActive();
         this.page = menuForm.isPage();
         this.menuPath = menuForm.getMenuPath();
-        this.orderNumber = menuForm.getOrder();
+        this.orderNumber = menuForm.getOrderNumber();
     }
 
     public void updateParent ( Menu parent ) {
-        this.parent.getChildren().remove( this );
+        if(this.parent != null) {
+            this.parent.getChildren().remove( this );
+        }
         this.parent = parent;
         if(!this.parent.getChildren().contains( this )) {
             this.parent.getChildren().add( this );

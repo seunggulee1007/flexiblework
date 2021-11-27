@@ -24,19 +24,19 @@ public class MenuService {
         return Collections.singletonList(menuDto);
     }
 
-    public Long saveNewMenu( MenuForm menuForm) {
+    public Long saveMenu(MenuForm menuForm) {
         if(menuForm.getMenuId() != null) {
-            return saveMenu( menuForm );
-        } else {
             return updateMenu( menuForm );
+        } else {
+            return saveNewMenu( menuForm );
         }
     }
 
-    private Long saveMenu ( MenuForm menuForm ) {
+    private Long saveNewMenu(MenuForm menuForm ) {
         Menu menu = Menu.builder()
                 .menuName( menuForm.getMenuName() )
                 .active( menuForm.isActive() )
-                .orderNumber( menuForm.getOrder() )
+                .orderNumber( menuForm.getOrderNumber() )
                 .page( menuForm.isPage() )
                 .menuPath( menuForm.getMenuPath() )
                 .build();
@@ -56,7 +56,7 @@ public class MenuService {
         return menu.getId();
     }
 
-    public void updateOrder(List<MenuForm> menuFormList) {
+    public List<MenuForm> updateOrder(List<MenuForm> menuFormList) {
 
         if(menuFormList.isEmpty()) {
             throw new BadRequestException("순서를 변경할 메뉴가 적어도 한개 이상 필요합니다.");
@@ -66,9 +66,9 @@ public class MenuService {
 
         for ( MenuForm menuForm: menuFormList ) {
             Menu menu = menuList.stream().filter( menus -> menus.getId().equals( menuForm.getMenuId() ) ).findFirst().orElseThrow();
-            menu.updateOrder(menuForm.getOrder());
+            menu.updateOrder(menuForm.getOrderNumber());
         }
-
+        return menuFormList;
     }
 
 }

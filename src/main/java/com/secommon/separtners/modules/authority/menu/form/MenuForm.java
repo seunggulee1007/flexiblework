@@ -32,7 +32,7 @@ public class MenuForm {
 
     /** 순서 */
     @NotNull(message = "순번이 누락되었습니다.")
-    private int order;
+    private int orderNumber;
 
     @NotNull(message = "부모 메뉴식별자가 누락되었습니다.")
     private Long parentId;
