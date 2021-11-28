@@ -12,7 +12,11 @@ import javax.validation.constraints.NotNull;
 @Data
 @Builder
 @NoArgsConstructor @AllArgsConstructor
-public class MenuForm {
+public class MenuUpdateForm {
+
+    /** 메뉴 아이디 */
+    @NotNull(message = "변경을 원하는 메뉴를 선택해 주세요.")
+    private Long menuId;
 
     /** 메뉴 명 */
     @NotEmpty(message = "메뉴 명이 누락되었습니다.")

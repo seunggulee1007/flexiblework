@@ -6,7 +6,6 @@ import com.secommon.separtners.modules.account.enums.AccountRole;
 import com.secommon.separtners.modules.account.repository.AccountRepository;
 import com.secommon.separtners.modules.authority.menu.Menu;
 import com.secommon.separtners.modules.authority.menu.MenuRepository;
-import com.secommon.separtners.modules.authority.menu.MenuService;
 import com.secommon.separtners.modules.company.department.Department;
 import com.secommon.separtners.modules.company.department.repository.DepartmentRepository;
 import com.secommon.separtners.modules.company.employee.Employee;

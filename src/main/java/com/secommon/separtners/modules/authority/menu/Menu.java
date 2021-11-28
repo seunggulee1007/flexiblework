@@ -1,7 +1,9 @@
 package com.secommon.separtners.modules.authority.menu;
 
 import com.secommon.separtners.modules.authority.menu.form.MenuForm;
+import com.secommon.separtners.modules.authority.menu.form.MenuUpdateForm;
 import com.secommon.separtners.modules.authority.menuauthority.MenuAuthority;
+import com.secommon.separtners.modules.common.UpdatedEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,7 +16,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Builder @Getter
 @AllArgsConstructor @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Menu {
+public class Menu extends UpdatedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,12 +52,12 @@ public class Menu {
     @OneToMany(mappedBy = "menu", fetch = LAZY)
     List<MenuAuthority> menuAuthorityList = new ArrayList<>();
 
-    public void updateMenu ( MenuForm menuForm ) {
-        this.menuName = menuForm.getMenuName();
-        this.active = menuForm.isActive();
-        this.page = menuForm.isPage();
-        this.menuPath = menuForm.getMenuPath();
-        this.orderNumber = menuForm.getOrderNumber();
+    public void updateMenu (MenuUpdateForm menuUpdateForm ) {
+        this.menuName = menuUpdateForm.getMenuName();
+        this.active = menuUpdateForm.isActive();
+        this.page = menuUpdateForm.isPage();
+        this.menuPath = menuUpdateForm.getMenuPath();
+        this.orderNumber = menuUpdateForm.getOrderNumber();
     }
 
     public void updateParent ( Menu parent ) {

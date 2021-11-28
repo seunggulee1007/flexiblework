@@ -2,6 +2,7 @@ package com.secommon.separtners.modules.authority.menu;
 
 import com.secommon.separtners.infra.commons.BaseAnnotation;
 import com.secommon.separtners.modules.authority.menu.form.MenuForm;
+import com.secommon.separtners.modules.authority.menu.form.MenuUpdateForm;
 import com.secommon.separtners.utils.ApiUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,12 +32,12 @@ public class MenuController {
     }
 
     @PutMapping("/menu")
-    public ApiUtil.ApiResult<Long> updateMenu(@Valid @RequestBody MenuForm menuForm) {
-        return success(menuService.saveMenu(menuForm), "수정되었습니다.");
+    public ApiUtil.ApiResult<Long> updateMenu(@Valid @RequestBody MenuUpdateForm menuUpdateForm) {
+        return success(menuService.updateMenu(menuUpdateForm), "수정되었습니다.");
     }
 
     @PutMapping("/menu/ordernumber")
-    public ApiUtil.ApiResult<List<MenuForm>> updateMenuOrderNumber(@Valid List<MenuForm> menuFormList) {
+    public ApiUtil.ApiResult<List<MenuUpdateForm>> updateMenuOrderNumber(@Valid List<MenuUpdateForm> menuFormList) {
         return success(menuService.updateOrder(menuFormList));
     }
 

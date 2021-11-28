@@ -3,6 +3,7 @@ package com.secommon.separtners.modules.authority.menu;
 import com.secommon.separtners.infra.AbstractContainerBaseTest;
 import com.secommon.separtners.infra.MockMvcTest;
 import com.secommon.separtners.modules.authority.menu.form.MenuForm;
+import com.secommon.separtners.modules.authority.menu.form.MenuUpdateForm;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -92,13 +93,13 @@ class MenuServiceTest extends AbstractContainerBaseTest {
         // when
         Long savedMenuId = menuService.saveMenu(menuForm);
         String changedMenuName = "변경된메뉴이름";
-        menuForm = MenuForm.builder()
+        MenuUpdateForm menuUpdateForm = MenuUpdateForm.builder()
                 .menuId(savedMenuId)
                 .menuName(changedMenuName)
                 .parentId(first.get().getId())
                 .build();
         // when
-        Long changedMenuId = menuService.saveMenu(menuForm);
+        Long changedMenuId = menuService.updateMenu(menuUpdateForm);
         Optional<Menu> byId = menuRepository.findById(changedMenuId);
         // then
         assertTrue(byId.isPresent());
@@ -115,29 +116,21 @@ class MenuServiceTest extends AbstractContainerBaseTest {
         assertTrue(first.isPresent());
         // given
         String menuName = "첫번째 메뉴";
-        MenuForm menuForm = MenuForm.builder()
-                .menuName(menuName)
-                .page(false)
-                .orderNumber(1)
-                .parentId(first.get().getId())
-                .build();
+        MenuForm menuForm = saveMenu(first.get(), 1, menuName);
         Long savedMenuId = menuService.saveMenu(menuForm);
-        menuForm.setMenuId(savedMenuId);
+
+
+        MenuUpdateForm menuUpdateForm = updateMenuForm(first.get(), menuName, 2, savedMenuId);
         String menuName2 = "변경된메뉴이름";
-        MenuForm menuForm2 = MenuForm.builder()
-                .menuName(menuName2)
-                .orderNumber(2)
-                .parentId(first.get().getId())
-                .build();
+        MenuForm menuForm2 = saveMenu(first.get(), 2, menuName2);
+
         Long savedMenuId2 = menuService.saveMenu(menuForm2);
-        menuForm2.setMenuId(savedMenuId2);
+        MenuUpdateForm menuUpdateForm2 = updateMenuForm(first.get(), menuName2, 1, savedMenuId2);
         // when
-        List<MenuForm> menuFormList = new ArrayList<>();
-        menuForm.setOrderNumber(2);
-        menuFormList.add(menuForm);
-        menuForm2.setOrderNumber(1);
-        menuFormList.add(menuForm2);
-        menuService.updateOrder(menuFormList);
+        List<MenuUpdateForm> menuUpdateFormList = new ArrayList<>();
+        menuUpdateFormList.add(menuUpdateForm);
+        menuUpdateFormList.add(menuUpdateForm2);
+        menuService.updateOrder(menuUpdateFormList);
         // then
         List<Menu> menuList = menuRepository.findAllByParentId(1L);
         for (Menu menu : menuList) {
@@ -149,5 +142,24 @@ class MenuServiceTest extends AbstractContainerBaseTest {
         }
 
 
+    }
+
+    private MenuUpdateForm updateMenuForm(Menu first, String menuName, int orderNumber, Long savedMenuId) {
+        return MenuUpdateForm
+                .builder()
+                .menuId(savedMenuId)
+                .menuName(menuName)
+                .parentId(first.getId())
+                .orderNumber(orderNumber)
+                .build();
+    }
+
+    private MenuForm saveMenu(Menu first, int orderNumber, String menuName) {
+        return MenuForm.builder()
+                .menuName(menuName)
+                .page(false)
+                .orderNumber(orderNumber)
+                .parentId(first.getId())
+                .build();
     }
 }
