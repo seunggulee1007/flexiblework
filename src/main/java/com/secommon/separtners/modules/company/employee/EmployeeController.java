@@ -3,6 +3,8 @@ package com.secommon.separtners.modules.company.employee;
 import com.secommon.separtners.infra.commons.BaseAnnotation;
 import com.secommon.separtners.modules.common.CommonMessage;
 import com.secommon.separtners.modules.common.EnumMapperValue;
+import com.secommon.separtners.modules.company.employee.enums.EmployeeStatus;
+import com.secommon.separtners.modules.company.employee.enums.Position;
 import com.secommon.separtners.modules.company.employee.form.PositionForm;
 import com.secommon.separtners.modules.company.employee.form.StatusForm;
 import com.secommon.separtners.utils.ApiUtil;
@@ -41,7 +43,7 @@ public class EmployeeController {
      * @return Position : 변경된 직급
      */
     @PutMapping("/employee/position")
-    public ApiUtil.ApiResult<Position> updatePosition( @Valid @RequestBody PositionForm positionForm ) {
+    public ApiUtil.ApiResult<Position> updatePosition(@Valid @RequestBody PositionForm positionForm ) {
         return success( employeeService.updatePosition( positionForm ), CommonMessage.SUCCESS_UPDATE.getMessage() );
     }
 
@@ -51,7 +53,7 @@ public class EmployeeController {
      * @return EmployeeStatus : 변경된 상태
      */
     @PutMapping("/employee/status")
-    public ApiUtil.ApiResult<EmployeeStatus> updateStatus( @Valid @RequestBody StatusForm statusForm ) {
+    public ApiUtil.ApiResult<EmployeeStatus> updateStatus(@Valid @RequestBody StatusForm statusForm ) {
         return success( employeeService.updateStatus( statusForm ), CommonMessage.SUCCESS_UPDATE.getMessage() );
     }
 

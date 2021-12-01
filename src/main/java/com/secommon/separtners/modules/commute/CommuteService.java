@@ -5,6 +5,9 @@ import com.secommon.separtners.infra.commons.BaseServiceAnnotation;
 import com.secommon.separtners.infra.security.JwtAuthentication;
 import com.secommon.separtners.modules.account.Account;
 import com.secommon.separtners.modules.account.repository.AccountRepository;
+import com.secommon.separtners.modules.commute.form.CommuteForm;
+import com.secommon.separtners.modules.commute.form.CommuteSearchForm;
+import com.secommon.separtners.modules.commute.repository.CommuteRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +25,7 @@ public class CommuteService {
         return commuteRepository.findByAccountIdAndWorkedDateBetween( commuteSearchForm ).orElseGet( CommuteDto::new );
     }
 
-    public CommuteDto doCommute( CommuteForm commuteForm, JwtAuthentication authentication ) {
+    public CommuteDto doCommute(CommuteForm commuteForm, JwtAuthentication authentication ) {
         Commute commute = commuteRepository.findByAccountIdAndWorkedDateBetween(authentication.accountId).orElseGet( Commute::new );
         commute.setWorkDate(commuteForm.isOnOffFlag());
         if(commute.getId() == null) {

@@ -36,4 +36,5 @@ public class MenuAuthority extends UpdatedEntity {
     public void changeAuthorityGroup(AuthorityGroup authorityGroup) {
         this.authorityGroup = authorityGroup;
     }
+
 }

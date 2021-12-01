@@ -1,4 +1,8 @@
-package com.secommon.separtners.modules.commute;
+package com.secommon.separtners.modules.commute.repository;
+
+import com.secommon.separtners.modules.commute.Commute;
+import com.secommon.separtners.modules.commute.CommuteDto;
+import com.secommon.separtners.modules.commute.form.CommuteSearchForm;
 
 import java.util.Optional;
 

@@ -1,7 +1,10 @@
-package com.secommon.separtners.modules.commute;
+package com.secommon.separtners.modules.commute.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.secommon.separtners.modules.common.Querydsl4RepositorySupport;
+import com.secommon.separtners.modules.commute.Commute;
+import com.secommon.separtners.modules.commute.CommuteDto;
+import com.secommon.separtners.modules.commute.form.CommuteSearchForm;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,7 +21,7 @@ public class CommuteRepositoryImpl extends Querydsl4RepositorySupport implements
     }
 
     @Override
-    public Optional<CommuteDto> findByAccountIdAndWorkedDateBetween( CommuteSearchForm commuteSearchForm) {
+    public Optional<CommuteDto> findByAccountIdAndWorkedDateBetween(CommuteSearchForm commuteSearchForm) {
         return Optional.ofNullable(select( constructor( CommuteDto.class, commute ) )
                 .from( commute )
                 .where(

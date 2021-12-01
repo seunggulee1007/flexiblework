@@ -3,9 +3,12 @@ package com.secommon.separtners.modules.company.employee;
 import com.secommon.separtners.modules.account.Account;
 import com.secommon.separtners.modules.common.UpdatedEntity;
 import com.secommon.separtners.modules.company.department.Department;
+import com.secommon.separtners.modules.company.employee.enums.EmployeeStatus;
+import com.secommon.separtners.modules.company.employee.enums.Position;
 import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartment;
 import com.secommon.separtners.modules.company.employeemanagement.EmployeeManagement;
 import com.secommon.separtners.modules.flexiblework.flexibleworkgroup.FlexibleWorkGroup;
+import com.secommon.separtners.modules.flexiblework.flexibleworkplan.FlexibleWorkPlan;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,8 +22,7 @@ import static javax.persistence.FetchType.LAZY;
 
 @Slf4j
 @Entity
-@Builder
-@Getter
+@Builder @Getter
 @AllArgsConstructor @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Employee extends UpdatedEntity {
 
@@ -60,7 +62,12 @@ public class Employee extends UpdatedEntity {
     private List<EmployeeManagement> employeeList = new ArrayList<>();
 
     @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "flexible_work_group_id")
     private FlexibleWorkGroup flexibleWorkGroup;
+
+    @OneToMany(fetch = LAZY, mappedBy = "employee")
+    @Builder.Default
+    private List<FlexibleWorkPlan> flexibleWorkPlanList = new ArrayList<>();
 
     public void updateStatus(EmployeeStatus status) {
         this.status = status;
@@ -93,4 +100,5 @@ public class Employee extends UpdatedEntity {
         this.flexibleWorkGroup.getEmployeeList().remove( this );
         this.flexibleWorkGroup = null;
     }
+
 }

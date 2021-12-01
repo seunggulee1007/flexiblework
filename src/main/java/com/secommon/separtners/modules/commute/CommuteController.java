@@ -3,6 +3,9 @@ package com.secommon.separtners.modules.commute;
 import com.secommon.separtners.infra.advice.exceptions.BadRequestException;
 import com.secommon.separtners.infra.commons.BaseAnnotation;
 import com.secommon.separtners.infra.security.JwtAuthentication;
+import com.secommon.separtners.modules.commute.form.CommuteForm;
+import com.secommon.separtners.modules.commute.form.CommuteSearchForm;
+import com.secommon.separtners.modules.commute.validator.CommuteFormValidator;
 import com.secommon.separtners.utils.ApiUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -37,7 +40,7 @@ public class CommuteController {
     }
 
     @PostMapping("/commute")
-    public ApiUtil.ApiResult<CommuteDto> doCommute( @Valid @RequestBody CommuteForm commuteForm, @AuthenticationPrincipal JwtAuthentication authentication) {
+    public ApiUtil.ApiResult<CommuteDto> doCommute(@Valid @RequestBody CommuteForm commuteForm, @AuthenticationPrincipal JwtAuthentication authentication) {
         if( !Objects.equals( commuteForm.getAccountId(), authentication.accountId ) ) {
             throw new BadRequestException("일치 하지 않는 사용자 입니다. 로그인 정보를 다시 확인해 주세요.");
         }

@@ -77,7 +77,7 @@ public class FlexibleWork extends UpdatedEntity {
     @Builder.Default
     private List<RestTime> restTimeList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "flexibleWork")
+    @OneToMany(mappedBy = "flexibleWork", fetch = LAZY)
     @Builder.Default
     private List<MandatoryTime> mandatoryTimeList = new ArrayList<>();
 

@@ -3,6 +3,8 @@ package com.secommon.separtners.modules.company.employee;
 import com.secommon.separtners.infra.AbstractContainerBaseTest;
 import com.secommon.separtners.infra.MockMvcTest;
 import com.secommon.separtners.infra.security.WithMockJwtAuthentication;
+import com.secommon.separtners.modules.company.employee.enums.EmployeeStatus;
+import com.secommon.separtners.modules.company.employee.enums.Position;
 import com.secommon.separtners.modules.company.employee.form.PositionForm;
 import com.secommon.separtners.modules.company.employee.form.StatusForm;
 import com.secommon.separtners.modules.company.employee.repository.EmployeeRepository;

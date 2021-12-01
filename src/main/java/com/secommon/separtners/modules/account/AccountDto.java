@@ -2,7 +2,6 @@ package com.secommon.separtners.modules.account;
 
 import com.secommon.separtners.infra.security.Jwt;
 import com.secommon.separtners.modules.account.enums.AccountRole;
-import com.secommon.separtners.modules.company.employee.Position;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

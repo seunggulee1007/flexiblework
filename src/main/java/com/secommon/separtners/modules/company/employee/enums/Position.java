@@ -1,4 +1,4 @@
-package com.secommon.separtners.modules.company.employee;
+package com.secommon.separtners.modules.company.employee.enums;
 
 import com.secommon.separtners.modules.common.EnumMapperType;
 

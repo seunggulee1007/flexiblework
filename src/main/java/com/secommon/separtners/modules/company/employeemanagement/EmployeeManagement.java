@@ -3,7 +3,7 @@ package com.secommon.separtners.modules.company.employeemanagement;
 import com.secommon.separtners.modules.common.CreatedEntity;
 import com.secommon.separtners.modules.company.department.Department;
 import com.secommon.separtners.modules.company.employee.Employee;
-import com.secommon.separtners.modules.company.employee.EmployeeStatus;
+import com.secommon.separtners.modules.company.employee.enums.EmployeeStatus;
 import lombok.*;
 
 import javax.persistence.*;

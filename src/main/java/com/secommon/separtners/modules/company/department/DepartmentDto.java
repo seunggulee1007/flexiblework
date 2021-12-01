@@ -1,6 +1,6 @@
 package com.secommon.separtners.modules.company.department;
 
-import com.secommon.separtners.modules.company.employee.EmployeeDto;
+import com.secommon.separtners.modules.company.employee.dto.EmployeeDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

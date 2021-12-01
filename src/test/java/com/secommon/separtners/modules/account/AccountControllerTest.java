@@ -4,7 +4,7 @@ import com.secommon.separtners.infra.AbstractContainerBaseTest;
 import com.secommon.separtners.infra.MockMvcTest;
 import com.secommon.separtners.modules.account.form.SignUpForm;
 import com.secommon.separtners.modules.account.repository.AccountRepository;
-import com.secommon.separtners.modules.company.employee.Position;
+import com.secommon.separtners.modules.company.employee.enums.Position;
 import com.secommon.separtners.modules.main.form.LoginForm;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;

@@ -1,7 +1,10 @@
-package com.secommon.separtners.modules.company.employee;
+package com.secommon.separtners.modules.company.employee.dto;
 
 import com.secommon.separtners.modules.account.Account;
+import com.secommon.separtners.modules.company.employee.Employee;
 import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartment;
+import com.secommon.separtners.modules.flexiblework.flexiblework.FlexibleWork;
+import com.secommon.separtners.modules.flexiblework.flexibleworkgroup.FlexibleWorkGroup;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -29,7 +32,7 @@ public class EmployeeDto {
 
     private List<EmployeeDepartment> employeeDepartmentList;
 
-    public EmployeeDto( Employee employee, Account account ) {
+    public EmployeeDto(Employee employee, Account account ) {
         this.employeeId = employee.getId();
         this.accountId = account.getId();
         this.userName = account.getUserName();
@@ -45,4 +48,5 @@ public class EmployeeDto {
         this.email = employee.getAccount().getEmail();
         this.hireDate = employee.getHireDate();
     }
+
 }

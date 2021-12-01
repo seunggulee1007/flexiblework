@@ -1,6 +1,6 @@
 package com.secommon.separtners.modules.company.employee.form;
 
-import com.secommon.separtners.modules.company.employee.Position;
+import com.secommon.separtners.modules.company.employee.enums.Position;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,8 +1,7 @@
-package com.secommon.separtners.modules.commute;
+package com.secommon.separtners.modules.commute.repository;
 
+import com.secommon.separtners.modules.commute.Commute;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.Optional;
 
 public interface CommuteRepository extends JpaRepository<Commute, Long>, CommuteRepositoryQuerdsl {
 }

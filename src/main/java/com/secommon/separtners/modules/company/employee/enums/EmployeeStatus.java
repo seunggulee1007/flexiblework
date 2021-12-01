@@ -1,4 +1,4 @@
-package com.secommon.separtners.modules.company.employee;
+package com.secommon.separtners.modules.company.employee.enums;
 
 public enum EmployeeStatus {
     NORMAL, // 정상
