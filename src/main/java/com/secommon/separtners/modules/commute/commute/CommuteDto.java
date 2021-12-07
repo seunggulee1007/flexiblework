@@ -1,4 +1,4 @@
-package com.secommon.separtners.modules.commute;
+package com.secommon.separtners.modules.commute.commute;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

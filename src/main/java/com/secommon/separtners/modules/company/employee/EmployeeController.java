@@ -31,10 +31,11 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
+    private static final String PREFIX_URL = "/employee";
     /**
      * 직급 리스트 조회
      */
-    @GetMapping("/employee/positions")
+    @GetMapping(PREFIX_URL+"/positions")
     public ApiUtil.ApiResult<List<EnumMapperValue>> getPositions() {
         return success( Arrays.stream(Position.values())
                 .map( EnumMapperValue::new )
@@ -47,7 +48,7 @@ public class EmployeeController {
      * @param positionForm : 수정 폼
      * @return Position : 변경된 직급
      */
-    @PutMapping("/employee/position")
+    @PutMapping(PREFIX_URL+"/position")
     public ApiUtil.ApiResult<Position> updatePosition(@Valid @RequestBody PositionForm positionForm ) {
         return success( employeeService.updatePosition( positionForm ), CommonMessage.SUCCESS_UPDATE.getMessage() );
     }
@@ -57,7 +58,7 @@ public class EmployeeController {
      * @param statusForm : 상태 수정 폼
      * @return EmployeeStatus : 변경된 상태
      */
-    @PutMapping("/employee/status")
+    @PutMapping(PREFIX_URL+"/status")
     public ApiUtil.ApiResult<EmployeeStatus> updateStatus(@Valid @RequestBody StatusForm statusForm ) {
         return success( employeeService.updateStatus( statusForm ), CommonMessage.SUCCESS_UPDATE.getMessage() );
     }
@@ -68,7 +69,7 @@ public class EmployeeController {
      * @param pageable : 검색조건 (page)
      * @return EmployeeStatus : 변경된 상태
      */
-    @GetMapping("/employee/department/{departmentId}")
+    @GetMapping(PREFIX_URL+"/departmentless/id/{departmentId}")
     public ApiUtil.ApiResult<Page<EmployeeDto>> getEmployeeListNotRegistered(
             @PathVariable Long departmentId,
             EmployeeSearchForm condition,

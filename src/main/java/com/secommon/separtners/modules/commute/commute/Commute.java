@@ -1,4 +1,4 @@
-package com.secommon.separtners.modules.commute;
+package com.secommon.separtners.modules.commute.commute;
 
 import com.secommon.separtners.modules.account.Account;
 import com.secommon.separtners.modules.common.UpdatedEntity;

@@ -1,11 +1,11 @@
-package com.secommon.separtners.modules.commute;
+package com.secommon.separtners.modules.commute.commute;
 
 import com.secommon.separtners.infra.advice.exceptions.BadRequestException;
 import com.secommon.separtners.infra.commons.BaseAnnotation;
 import com.secommon.separtners.infra.security.JwtAuthentication;
-import com.secommon.separtners.modules.commute.form.CommuteForm;
-import com.secommon.separtners.modules.commute.form.CommuteSearchForm;
-import com.secommon.separtners.modules.commute.validator.CommuteFormValidator;
+import com.secommon.separtners.modules.commute.commute.form.CommuteForm;
+import com.secommon.separtners.modules.commute.commute.form.CommuteSearchForm;
+import com.secommon.separtners.modules.commute.commute.validator.CommuteFormValidator;
 import com.secommon.separtners.utils.ApiUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

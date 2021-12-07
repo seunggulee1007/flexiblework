@@ -1,10 +1,10 @@
-package com.secommon.separtners.modules.commute.repository;
+package com.secommon.separtners.modules.commute.commute.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.secommon.separtners.modules.common.Querydsl4RepositorySupport;
-import com.secommon.separtners.modules.commute.Commute;
-import com.secommon.separtners.modules.commute.CommuteDto;
-import com.secommon.separtners.modules.commute.form.CommuteSearchForm;
+import com.secommon.separtners.modules.commute.commute.Commute;
+import com.secommon.separtners.modules.commute.commute.CommuteDto;
+import com.secommon.separtners.modules.commute.commute.form.CommuteSearchForm;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,7 +12,7 @@ import java.time.LocalTime;
 import java.util.Optional;
 
 import static com.querydsl.core.types.Projections.constructor;
-import static com.secommon.separtners.modules.commute.QCommute.commute;
+import static com.secommon.separtners.modules.commute.commute.QCommute.commute;
 
 public class CommuteRepositoryImpl extends Querydsl4RepositorySupport implements CommuteRepositoryQuerdsl  {
 

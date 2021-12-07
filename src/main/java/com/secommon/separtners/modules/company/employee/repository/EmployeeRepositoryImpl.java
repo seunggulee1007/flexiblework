@@ -38,7 +38,6 @@ public class EmployeeRepositoryImpl extends Querydsl4RepositorySupport implement
     }
 
     public EmployeeWorkDto findAllWithWorkGroupAndWorkAndTimes(Long employeeId) {
-        log.error("employeeId :::: {} ", employeeId);
         return select(
                 constructor(EmployeeWorkDto.class, employee, account, flexibleWork, flexibleWorkGroup))
                 .from(employee)
@@ -49,7 +48,7 @@ public class EmployeeRepositoryImpl extends Querydsl4RepositorySupport implement
     }
 
     public Page<EmployeeDto> findAllNotRegistered( Long departmentId, EmployeeSearchForm employeeSearchForm, Pageable pageable ) {
-        QueryResults<EmployeeDto> result = select( constructor( EmployeeDto.class, employee, account ) )
+        return applyPagination(pageable, query-> query.select(constructor( EmployeeDto.class, employee, account ))
                 .from( employee )
                 .leftJoin( employee.account, account )
                 .leftJoin(employee.employeeDepartmentList, employeeDepartment)
@@ -57,13 +56,7 @@ public class EmployeeRepositoryImpl extends Querydsl4RepositorySupport implement
                         condition(employeeSearchForm.getUserName(), account.userName::containsIgnoreCase),
                         employeeDepartment.department.id.ne(departmentId).or(employeeDepartment.department.id.isNotNull())
                 )
-                .offset( pageable.getOffset() )
-                .limit( pageable.getPageSize() )
-                .fetchResults();
-
-        List<EmployeeDto> content = result.getResults();
-        long total = result.getTotal();
-        return new PageImpl<>(content, pageable, total);
+        );
     }
 
 }

@@ -7,13 +7,14 @@ import com.secommon.separtners.modules.account.enums.AccountRole;
 import com.secommon.separtners.modules.authority.authoritygroup.AuthorityGroup;
 import com.secommon.separtners.modules.authority.authoritygroup.AuthorityGroupAccount;
 import com.secommon.separtners.modules.common.UpdatedEntity;
-import com.secommon.separtners.modules.commute.Commute;
+import com.secommon.separtners.modules.commute.commute.Commute;
 import com.secommon.separtners.modules.company.employee.Employee;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -22,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -65,6 +65,11 @@ public class Account extends UpdatedEntity {
 
     /** 이메일 인증 여부 */
     private boolean emailVerified;
+
+    /** 최고 관리자 여부 */
+    @Builder.Default
+    @ColumnDefault(value="false")
+    private boolean superAdmin = false;
 
     /** 가입일자 */
     private LocalDateTime joinedAt;

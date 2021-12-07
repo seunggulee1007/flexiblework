@@ -35,7 +35,6 @@ public class EmployeeService {
     }
 
     public Page<EmployeeDto> getEmployeeListNotRegistered(Long departmentId, EmployeeSearchForm condition, Pageable pageable) {
-        Page<EmployeeDto> employeeList = employeeRepository.findAllNotRegistered(departmentId, condition, pageable);
-        return employeeList;
+        return employeeRepository.findAllNotRegistered(departmentId, condition, pageable);
     }
 }

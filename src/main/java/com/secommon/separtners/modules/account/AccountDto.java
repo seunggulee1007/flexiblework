@@ -51,6 +51,8 @@ public class AccountDto {
 
     private String departmentName;
 
+    private boolean superAdmin;
+
     public AccountDto(Account account) {
         copyProperties(account, this);
         this.accountId = account.getId();
@@ -60,7 +62,6 @@ public class AccountDto {
 
     public void generateAccessToken ( Jwt jwt) {
         Jwt.Claims claims = Jwt.Claims.of(accountId, email, roles.stream().map( AccountRole::name ).toArray(String[]::new));
-        log.error( "claims :: {} " , claims );
         this.accessToken = jwt.createAccessToken( claims );
         this.refreshToken = jwt.createRefreshToken( claims );
     }

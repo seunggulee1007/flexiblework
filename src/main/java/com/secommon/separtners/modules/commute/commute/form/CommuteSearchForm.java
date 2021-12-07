@@ -1,4 +1,4 @@
-package com.secommon.separtners.modules.commute.form;
+package com.secommon.separtners.modules.commute.commute.form;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,16 +10,10 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @NoArgsConstructor @AllArgsConstructor
-public class CommuteForm {
-
-    private Long commuteId;
-
-    private LocalDateTime onWorkDate;
-
-    private LocalDateTime offWorkDate;
-
-    private boolean onOffFlag;
+public class CommuteSearchForm {
 
     private Long accountId;
+
+    private LocalDateTime workedDate;
 
 }

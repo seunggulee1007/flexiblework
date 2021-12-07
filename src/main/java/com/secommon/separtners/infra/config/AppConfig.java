@@ -67,6 +67,7 @@ public class AppConfig {
                                 .userName( "이승구" )
                                 .password( passwordEncoder.encode( "1q2w3e$R" ) )
                                 .emailVerified( true )
+                                .superAdmin(true)
                                 .joinedAt( LocalDateTime.now() )
                                 .roles( Set.of( AccountRole.ADMIN, AccountRole.USER) )
                                 .build();
