@@ -38,7 +38,7 @@ public class EmployeeDto {
         this.userName = account.getUserName();
         this.email = account.getEmail();
         this.hireDate = employee.getHireDate();
-        this.employeeDepartmentList = employee.getEmployeeDepartmentList();
+//        this.employeeDepartmentList = employee.getEmployeeDepartmentList();
     }
 
     public EmployeeDto ( Employee employee ) {

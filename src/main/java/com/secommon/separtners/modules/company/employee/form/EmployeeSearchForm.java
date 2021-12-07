@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class EmployeeSearchForm {
 
-    private String userName;
+    private String userName = null;
 
-    private String email;
+    private String email = null;
 }

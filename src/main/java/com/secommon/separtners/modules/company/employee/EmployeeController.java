@@ -3,13 +3,18 @@ package com.secommon.separtners.modules.company.employee;
 import com.secommon.separtners.infra.commons.BaseAnnotation;
 import com.secommon.separtners.modules.common.CommonMessage;
 import com.secommon.separtners.modules.common.EnumMapperValue;
+import com.secommon.separtners.modules.company.employee.dto.EmployeeDto;
 import com.secommon.separtners.modules.company.employee.enums.EmployeeStatus;
 import com.secommon.separtners.modules.company.employee.enums.Position;
+import com.secommon.separtners.modules.company.employee.form.EmployeeSearchForm;
 import com.secommon.separtners.modules.company.employee.form.PositionForm;
 import com.secommon.separtners.modules.company.employee.form.StatusForm;
 import com.secommon.separtners.utils.ApiUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -55,6 +60,20 @@ public class EmployeeController {
     @PutMapping("/employee/status")
     public ApiUtil.ApiResult<EmployeeStatus> updateStatus(@Valid @RequestBody StatusForm statusForm ) {
         return success( employeeService.updateStatus( statusForm ), CommonMessage.SUCCESS_UPDATE.getMessage() );
+    }
+
+    /**
+     * 부서에 등록되지 않은 직원 목록 조회
+     * @param condition : 검색조건 (사원명)
+     * @param pageable : 검색조건 (page)
+     * @return EmployeeStatus : 변경된 상태
+     */
+    @GetMapping("/employee/department/{departmentId}")
+    public ApiUtil.ApiResult<Page<EmployeeDto>> getEmployeeListNotRegistered(
+            @PathVariable Long departmentId,
+            EmployeeSearchForm condition,
+            Pageable pageable ) {
+        return success( employeeService.getEmployeeListNotRegistered( departmentId, condition, pageable ) );
     }
 
 }

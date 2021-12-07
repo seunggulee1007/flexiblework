@@ -12,4 +12,6 @@ public interface EmployeeRepositoryQuerydsl {
 
     EmployeeWorkDto findAllWithWorkGroupAndWorkAndTimes(Long employeeId);
 
+    Page<EmployeeDto> findAllNotRegistered( Long departmentId, EmployeeSearchForm condition, Pageable pageable );
+
 }
