@@ -21,9 +21,7 @@ import java.util.stream.Collectors;
 @Data
 @Builder
 @NoArgsConstructor @AllArgsConstructor
-public class EmployeeWorkDto {
-
-    private Long employeeId;
+public class AccountWorkDto {
 
     private Long accountId;
 
@@ -41,9 +39,7 @@ public class EmployeeWorkDto {
 
     private List<FlexibleWorkPlanDto> flexibleWorkPlanList;
 
-    public EmployeeWorkDto(Employee employee, Account account, FlexibleWork flexibleWork, FlexibleWorkGroup flexibleWorkGroup) {
-        log.error("employeeWorkDto.getEmployeeId :: {} ", employee.getId());
-        this.employeeId = employee.getId();
+    public AccountWorkDto(Account account, FlexibleWork flexibleWork, FlexibleWorkGroup flexibleWorkGroup) {
         this.accountId = account.getId();
         this.flexibleWorkId = flexibleWork.getId();
         this.flexibleWorkGroupId = flexibleWorkGroup.getId();
@@ -51,7 +47,7 @@ public class EmployeeWorkDto {
         this.endTime = flexibleWork.getEndTime();
         this.mandatoryTimeList = flexibleWork.getMandatoryTimeList().stream().map(MandatoryTimeForm::new).collect(Collectors.toList());
         this.restTimeList = flexibleWork.getRestTimeList().stream().map(RestTimeForm::new).collect(Collectors.toList());
-        this.flexibleWorkPlanList = employee.getFlexibleWorkPlanList().stream().map(FlexibleWorkPlanDto::new).collect(Collectors.toList());
+        this.flexibleWorkPlanList = account.getFlexibleWorkPlanList().stream().map(FlexibleWorkPlanDto::new).collect(Collectors.toList());
     }
 
 }

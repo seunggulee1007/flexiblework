@@ -1,6 +1,6 @@
 package com.secommon.separtners.modules.flexiblework.flexibleworkgroup;
 
-import com.secommon.separtners.modules.company.employee.Employee;
+import com.secommon.separtners.modules.account.Account;
 import com.secommon.separtners.modules.flexiblework.flexiblework.FlexibleWork;
 import com.secommon.separtners.modules.flexiblework.flexibleworkgroup.form.FlexibleWorkGroupForm;
 import lombok.*;
@@ -8,7 +8,9 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -31,24 +33,21 @@ public class FlexibleWorkGroup {
 
     @OneToMany(mappedBy = "flexibleWorkGroup", fetch = LAZY)
     @Builder.Default
-    private List<Employee> employeeList = new ArrayList<>();
+    private List<Account> accountList = new ArrayList<>();
 
     private boolean active;
 
-    public void addEmployee ( Employee employee ) {
-        employee.setWorkGroup(this);
+    public void addAccount(Account account ) {
+        account.setWorkGroup(this);
     }
 
-    public int countEmployee() {
-        return this.employeeList.size();
+    public int countAccount() {
+        return this.accountList.size();
     }
 
     public void updateFlexibleWorkGroup ( FlexibleWork flexibleWork, FlexibleWorkGroupForm flexibleWorkGroupForm ) {
-        if(flexibleWork != this.flexibleWork) {
-            this.flexibleWork.getFlexibleWorkGroupList().remove( this );
-            this.flexibleWork = flexibleWork;
-            this.flexibleWork.getFlexibleWorkGroupList().add( this );
-        }
+        this.flexibleWork = flexibleWork;
+        this.flexibleWork.getFlexibleWorkGroupList().add( this );
         if( StringUtils.hasText(flexibleWorkGroupForm.getFlexibleWorkGroupName())) {
             this.flexibleWorkGroupName = flexibleWorkGroupForm.getFlexibleWorkGroupName();
         }

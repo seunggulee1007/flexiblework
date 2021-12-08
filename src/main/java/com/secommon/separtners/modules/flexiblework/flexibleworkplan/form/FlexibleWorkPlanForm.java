@@ -8,7 +8,7 @@ import java.util.List;
 public class FlexibleWorkPlanForm {
 
     /** 적용 사원 아이디 */
-    private Long employeeId;
+    private Long accountId;
 
     List<FlexibleWorkPlanTimeForm> flexibleWorkPlanTimeFormList;
 

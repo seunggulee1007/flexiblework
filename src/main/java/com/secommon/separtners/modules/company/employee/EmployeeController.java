@@ -11,6 +11,7 @@ import com.secommon.separtners.modules.company.employee.form.PositionForm;
 import com.secommon.separtners.modules.company.employee.form.StatusForm;
 import com.secommon.separtners.utils.ApiUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 
 import static com.secommon.separtners.utils.ApiUtil.success;
 
+@Slf4j
 @BaseAnnotation
 @RequiredArgsConstructor
 public class EmployeeController {
@@ -74,6 +76,7 @@ public class EmployeeController {
             @PathVariable Long departmentId,
             EmployeeSearchForm condition,
             Pageable pageable ) {
+        log.error("departmentId ::: {}", departmentId);
         return success( employeeService.getEmployeeListNotRegistered( departmentId, condition, pageable ) );
     }
 

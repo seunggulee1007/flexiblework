@@ -1,10 +1,10 @@
 package com.secommon.separtners.modules.commute.area;
 
+import com.secommon.separtners.modules.account.Account;
 import com.secommon.separtners.modules.common.Address;
 import com.secommon.separtners.modules.common.UpdatedEntity;
 import com.secommon.separtners.modules.commute.area.form.CommuteAreaUpdateForm;
 import com.secommon.separtners.modules.commute.group.CommuteGroup;
-import com.secommon.separtners.modules.company.employee.Employee;
 import lombok.*;
 
 import javax.persistence.*;
@@ -43,7 +43,7 @@ public class CommuteArea extends UpdatedEntity {
 
     @OneToMany(mappedBy = "commuteArea",fetch = LAZY)
     @Builder.Default
-    private List<Employee> employeeList = new ArrayList<>();
+    private List<Account> accountList = new ArrayList<>();
 
     public void changeAddress(Address address) {
         this.address = address;

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Transactional(readOnly = true)
-public interface AccountRepository extends JpaRepository<Account, Long> {
+public interface AccountRepository extends JpaRepository<Account, Long>, AccountRepositoryQuerydsl {
     Optional<Account> findByUserName ( String nickname );
 
     @EntityGraph("Account.withAccountRolesAndEmployee")

@@ -10,8 +10,6 @@ import com.secommon.separtners.modules.company.department.Department;
 import com.secommon.separtners.modules.company.department.repository.DepartmentRepository;
 import com.secommon.separtners.modules.company.employee.Employee;
 import com.secommon.separtners.modules.company.employee.repository.EmployeeRepository;
-import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartment;
-import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -45,8 +43,6 @@ public class AppConfig {
             @Autowired
             EmployeeRepository employeeRepository;
             @Autowired
-            EmployeeDepartmentRepository employeeDepartmentRepository;
-            @Autowired
             MenuRepository menuRepository;
 
             @Override
@@ -72,12 +68,13 @@ public class AppConfig {
                                 .roles( Set.of( AccountRole.ADMIN, AccountRole.USER) )
                                 .build();
                         accountRepository.save( account );
-                        Employee employee = saveEmployee(account);
-                        saveEmployeeDepartment( department, employee );
+                        Employee employee = saveEmployee();
+                        account.matchingEmployee(employee);
+                        account.matchingDepartment(department);
                     } else {
                         Account account = accounts.get( 0 );
-                        Employee employee = saveEmployee(account);
-                        saveEmployeeDepartment( department, employee );
+                        Employee employee = saveEmployee();
+                        account.matchingEmployee(employee);
                     }
                 } // end if
                 List<Menu> menuList = menuRepository.findAll();
@@ -90,17 +87,8 @@ public class AppConfig {
                 }
             } // end run
 
-            private void saveEmployeeDepartment ( Department department, Employee employee ) {
-                EmployeeDepartment employeeDepartment = EmployeeDepartment.builder()
-                        .department( department )
-                        .employee( employee )
-                        .build();
-                employeeDepartmentRepository.save( employeeDepartment );
-            }
-
-            public Employee saveEmployee(Account account) {
+            public Employee saveEmployee() {
                 Employee employee = Employee.builder()
-                        .account( account )
                         .hireDate( LocalDateTime.now() )
                         .build();
                 employeeRepository.save( employee );

@@ -1,6 +1,8 @@
 package com.secommon.separtners.modules.flexiblework.flexibleworkgroup;
 
 import com.secommon.separtners.infra.commons.BaseServiceAnnotation;
+import com.secommon.separtners.modules.account.Account;
+import com.secommon.separtners.modules.account.repository.AccountRepository;
 import com.secommon.separtners.modules.company.employee.Employee;
 import com.secommon.separtners.modules.company.employee.repository.EmployeeRepository;
 import com.secommon.separtners.modules.flexiblework.flexiblework.FlexibleWork;
@@ -22,7 +24,7 @@ public class FlexibleWorkGroupService {
 
     private final FlexibleWorkGroupRepository flexibleWorkGroupRepository;
     private final FlexibleWorkRepository flexibleWorkRepository;
-    private final EmployeeRepository employeeRepository;
+    private final AccountRepository accountRepository;
 
     /**
      * 유연근무 그룹 저장 로직
@@ -49,9 +51,9 @@ public class FlexibleWorkGroupService {
         FlexibleWorkGroup flexibleWorkGroup = flexibleWorkGroupRepository.findById( flexibleWorkGroupId ).orElseThrow();
         removeDeletedEmployee( flexibleWorkGroupForm, flexibleWorkGroup );
         flexibleWorkGroup.updateFlexibleWorkGroup( flexibleWork, flexibleWorkGroupForm );
-        for ( Long employeeId: flexibleWorkGroupForm.getEmployeeIds() ) {
-            Employee employee = employeeRepository.findById( employeeId ).orElseThrow();
-            flexibleWorkGroup.addEmployee(employee);
+        for ( Long accountId: flexibleWorkGroupForm.getAccountIdList() ) {
+            Account account = accountRepository.findById(accountId).orElseThrow();
+            flexibleWorkGroup.addAccount(account);
         }
     }
 
@@ -61,12 +63,12 @@ public class FlexibleWorkGroupService {
      * @param flexibleWorkGroup : 데이터베이스 값
      */
     private void removeDeletedEmployee ( FlexibleWorkGroupForm flexibleWorkGroupForm, FlexibleWorkGroup flexibleWorkGroup ) {
-        List<Long> savedEmployeeIds = flexibleWorkGroup.getEmployeeList().stream().map( Employee::getId ).collect( Collectors.toList());
-        List<Long> compareList = savedEmployeeIds.stream().filter( compare ->
-                flexibleWorkGroupForm.getEmployeeIds().stream().noneMatch( Predicate.isEqual( compare ) )).collect( Collectors.toList());
-        for ( Long employeeId: compareList ) {
-            Employee employee = employeeRepository.findById( employeeId ).orElseThrow();
-            employee.removeWorkGroup();
+        List<Long> savedAccountIds = flexibleWorkGroup.getAccountList().stream().map( Account::getId ).collect( Collectors.toList());
+        List<Long> compareList = savedAccountIds.stream().filter( compare ->
+                flexibleWorkGroupForm.getAccountIdList().stream().noneMatch( Predicate.isEqual( compare ) )).collect( Collectors.toList());
+        for ( Long accountId: compareList ) {
+            Account account = accountRepository.findById(accountId).orElseThrow();
+            account.removeWorkGroup();
         }
     }
 
@@ -76,16 +78,14 @@ public class FlexibleWorkGroupService {
      * @param flexibleWork : 연결될 유연근무유형
      */
     private Long saveNewFlexibleWorkGroup ( FlexibleWorkGroupForm flexibleWorkGroupForm, FlexibleWork flexibleWork ) {
-        List<Employee> employeeList = new ArrayList<>();
         FlexibleWorkGroup flexibleWorkGroup = FlexibleWorkGroup.builder()
                 .flexibleWorkGroupName( flexibleWorkGroupForm.getFlexibleWorkGroupName() )
                 .flexibleWork( flexibleWork )
-                .employeeList( employeeList )
                 .build();
         flexibleWorkGroupRepository.save( flexibleWorkGroup );
-        for ( Long employeeId: flexibleWorkGroupForm.getEmployeeIds() ) {
-            Employee employee = employeeRepository.findById( employeeId ).orElseThrow();
-            employee.setWorkGroup( flexibleWorkGroup );
+        for ( Long accountId: flexibleWorkGroupForm.getAccountIdList() ) {
+            Account account = accountRepository.findById(accountId).orElseThrow();
+            account.setWorkGroup( flexibleWorkGroup );
         }
         return flexibleWorkGroup.getId();
     }

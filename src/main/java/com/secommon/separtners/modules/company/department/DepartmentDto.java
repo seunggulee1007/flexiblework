@@ -35,7 +35,7 @@ public class DepartmentDto {
             this.parentId = department.getParent().getId();
         }
         this.children = department.getChild().stream().map( DepartmentDto::new ).collect( Collectors.toList());
-        this.employeeDtoList = department.getEmployeeDepartmentList().stream().map( employeeDepartment -> new EmployeeDto(employeeDepartment.getEmployee()) ).collect( Collectors.toList());
+        this.employeeDtoList = department.getAccountList().stream().map( account -> new EmployeeDto(account) ).collect( Collectors.toList());
     }
 
 }

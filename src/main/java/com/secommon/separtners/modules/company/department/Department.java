@@ -1,8 +1,8 @@
 package com.secommon.separtners.modules.company.department;
 
+import com.secommon.separtners.modules.account.Account;
 import com.secommon.separtners.modules.common.UpdatedEntity;
 import com.secommon.separtners.modules.company.departmenmanagement.DepartmentManagement;
-import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartment;
 import lombok.*;
 import org.springframework.util.StringUtils;
 
@@ -45,10 +45,9 @@ public class Department extends UpdatedEntity {
     @Builder.Default
     private List<Department> child = new ArrayList<>();
 
-    /** 사원 리스트 */
-    @OneToMany(mappedBy = "department", fetch = LAZY)
+    @OneToMany(fetch = LAZY, mappedBy = "department")
     @Builder.Default
-    private List<EmployeeDepartment> employeeDepartmentList = new ArrayList<>();
+    private List<Account> accountList = new ArrayList<>();
 
     /** 해당 부서 관리 리스트 */
     @OneToMany(fetch = LAZY, mappedBy = "department")

@@ -56,8 +56,8 @@ public class AccountDto {
     public AccountDto(Account account) {
         copyProperties(account, this);
         this.accountId = account.getId();
-        this.position = account.getEmployee().getPosition().getTitle();
-        this.departmentName = account.getEmployee().getEmployeeDepartmentList().isEmpty() ? "" : account.getEmployee().getEmployeeDepartmentList().get( 0 ).getDepartment().getDepartmentName();
+        this.position = account.getEmployee() != null ? account.getEmployee().getPosition().getTitle() : "";
+        this.departmentName = account.getDepartment() != null ? account.getDepartment().getDepartmentName() : "";
     }
 
     public void generateAccessToken ( Jwt jwt) {

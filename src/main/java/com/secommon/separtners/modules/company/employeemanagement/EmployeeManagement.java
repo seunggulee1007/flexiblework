@@ -48,8 +48,4 @@ public class EmployeeManagement extends CreatedEntity {
         this.employee.updateStatus( this.status );
     }
 
-    public void updateDepartmentManagement(Department originDepartment, Department willChangeDepartment) {
-        this.employee.updateDepartmentManagement(originDepartment, willChangeDepartment);
-    }
-
 }

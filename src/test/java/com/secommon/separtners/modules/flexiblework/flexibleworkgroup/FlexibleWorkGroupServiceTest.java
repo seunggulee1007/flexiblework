@@ -3,8 +3,9 @@ package com.secommon.separtners.modules.flexiblework.flexibleworkgroup;
 import com.secommon.separtners.infra.AbstractContainerBaseTest;
 import com.secommon.separtners.infra.MockMvcTest;
 import com.secommon.separtners.infra.security.WithMockJwtAuthentication;
+import com.secommon.separtners.modules.account.Account;
+import com.secommon.separtners.modules.account.repository.AccountRepository;
 import com.secommon.separtners.modules.company.employee.Employee;
-import com.secommon.separtners.modules.company.employee.repository.EmployeeRepository;
 import com.secommon.separtners.modules.flexiblework.flexiblework.FlexibleWork;
 import com.secommon.separtners.modules.flexiblework.flexiblework.RestTime;
 import com.secommon.separtners.modules.flexiblework.flexiblework.enums.DailyWorkTime;
@@ -39,7 +40,7 @@ class FlexibleWorkGroupServiceTest extends AbstractContainerBaseTest {
     @Autowired
     private RestTimeRepository restTimeRepository;
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private AccountRepository accountRepository;
     @Autowired
     private FlexibleWorkGroupService flexibleWorkGroupService;
     @Autowired
@@ -57,21 +58,21 @@ class FlexibleWorkGroupServiceTest extends AbstractContainerBaseTest {
         // when
         FlexibleWorkGroup flexibleWorkGroup = flexibleWorkGroupRepository.findById( workGroupId ).orElseThrow();
         // then
-        assertNotEmpty(flexibleWorkGroup.getEmployeeList(), "사원이 있네요");
+        assertNotEmpty(flexibleWorkGroup.getAccountList(), "사원이 있네요");
         assertEquals(workGroupName, flexibleWorkGroup.getFlexibleWorkGroupName());
-        assertEquals( 1, flexibleWorkGroup.getEmployeeList().size() );
+        assertEquals( 1, flexibleWorkGroup.getAccountList().size() );
 
     }
 
     private Long saveWorkGroup ( FlexibleWork flexibleWork, String workGroupName ) {
-        Employee employee = Employee.builder().build();
-        employeeRepository.save( employee );
+        Account account = Account.builder().build();
+        accountRepository.save( account );
         List<Long> employeeIds = new ArrayList<>();
-        employeeIds.add( employee.getId() );
+        employeeIds.add( account.getId() );
         FlexibleWorkGroupForm flexibleWorkGroupForm = FlexibleWorkGroupForm.builder()
                 .flexibleWorkId( flexibleWork.getId() )
                 .flexibleWorkGroupName( workGroupName )
-                .employeeIds( employeeIds )
+                .accountIdList( employeeIds )
                 .build();
         return flexibleWorkGroupService.saveFlexibleWorkGroup( flexibleWorkGroupForm );
     }
@@ -85,25 +86,24 @@ class FlexibleWorkGroupServiceTest extends AbstractContainerBaseTest {
         FlexibleWork flexibleWork = saveFlexibleWork();
         String workGroupName = "테스트 그룹";
         Long workGroupId = saveWorkGroup( flexibleWork, workGroupName );
-        Employee employee = Employee.builder()
-                .build();
-        employeeRepository.save( employee );
-        List<Long> employeeIds = new ArrayList<>();
-        employeeIds.add( employee.getId() );
+        Account account = Account.builder().build();
+        accountRepository.save( account );
+        List<Long> accountList = new ArrayList<>();
+        accountList.add( account.getId() );
         String flexibleWorkGroupName = "변경된 이름??";
         FlexibleWorkGroupForm flexibleWorkGroupForm = FlexibleWorkGroupForm.builder()
                 .flexibleWorkGroupId( workGroupId )
                 .flexibleWorkId( flexibleWork.getId() )
                 .flexibleWorkGroupName( flexibleWorkGroupName )
-                .employeeIds( employeeIds )
+                .accountIdList( accountList )
                 .build();
         // when
         Long flexibleWorkGroupId = flexibleWorkGroupService.saveFlexibleWorkGroup( flexibleWorkGroupForm );
         FlexibleWorkGroup savedFlexibleWorkGroup = flexibleWorkGroupRepository.findById( flexibleWorkGroupId ).orElseThrow();
-        List<Employee> employeeList = savedFlexibleWorkGroup.getEmployeeList();
+        List<Account> employeeList = savedFlexibleWorkGroup.getAccountList();
         // then
         assertEquals( flexibleWorkGroupName, savedFlexibleWorkGroup.getFlexibleWorkGroupName() );
-        assertEquals( 1, savedFlexibleWorkGroup.getEmployeeList().size() );
+        assertEquals( 1, savedFlexibleWorkGroup.getAccountList().size() );
 
     }
 

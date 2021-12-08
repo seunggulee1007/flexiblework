@@ -28,6 +28,6 @@ public class CommuteGroupForm {
     @NotEmpty(message = "사원 아이디가 누락되었습니다.")
     @Min(value = 1, message = "적용을 원하시는 사원을 한명 이상 선택해 주세요.")
     @Builder.Default
-    private List<Long> employeeIdList = new ArrayList<>();
+    private List<Long> accountIdList = new ArrayList<>();
 
 }

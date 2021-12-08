@@ -35,12 +35,13 @@ class MenuServiceTest extends AbstractContainerBaseTest {
     @Test
     @DisplayName("메뉴 등록 테스트")
     void registerMenu_success () throws Exception {
+        Menu menu = menuRepository.findAll().stream().findFirst().orElseThrow();
         // given
         String menuName = "첫번째 메뉴";
         MenuForm menuForm = MenuForm.builder()
                 .menuName(menuName)
                 .page(false)
-                .parentId(1L)
+                .parentId(menu.getId())
                 .build();
         // when
         Long savedMenuId = menuService.saveMenu(menuForm);

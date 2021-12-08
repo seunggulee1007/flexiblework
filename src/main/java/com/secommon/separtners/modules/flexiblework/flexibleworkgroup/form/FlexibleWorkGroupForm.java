@@ -22,6 +22,6 @@ public class FlexibleWorkGroupForm {
     private String flexibleWorkGroupName;
 
     /** 적용할 사원 아이디 목록 */
-    private List<Long> employeeIds;
+    private List<Long> accountIdList;
 
 }

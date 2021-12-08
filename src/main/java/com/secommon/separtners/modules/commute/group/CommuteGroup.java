@@ -1,7 +1,7 @@
 package com.secommon.separtners.modules.commute.group;
 
+import com.secommon.separtners.modules.account.Account;
 import com.secommon.separtners.modules.commute.area.CommuteArea;
-import com.secommon.separtners.modules.company.employee.Employee;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,7 +26,7 @@ public class CommuteGroup {
     private boolean active;
 
     @OneToMany(mappedBy = "commuteGroup", fetch = LAZY)
-    private List<Employee> employeeList;
+    private List<Account> accountList;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "commute_area_id")

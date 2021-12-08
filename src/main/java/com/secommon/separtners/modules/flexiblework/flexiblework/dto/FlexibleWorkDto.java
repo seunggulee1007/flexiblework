@@ -61,7 +61,7 @@ public class FlexibleWorkDto {
     private LocalDate applyDateTo;
 
     /** 사용 여부 */
-    private String active;
+    private boolean active;
 
     /** 근무자 수 */
     private int workPersonCnt;
@@ -79,7 +79,7 @@ public class FlexibleWorkDto {
         this.dailyWorkTime = flexibleWork.getDailyWorkTime().getTitle();
         this.settlementUnitPeriod = flexibleWork.getSettlementUnitPeriod().getTitle();
         if(!flexibleWork.getFlexibleWorkGroupList().isEmpty()) {
-            this.workPersonCnt = flexibleWork.getFlexibleWorkGroupList().stream().mapToInt( FlexibleWorkGroup::countEmployee ).sum();
+            this.workPersonCnt = flexibleWork.getFlexibleWorkGroupList().stream().mapToInt( FlexibleWorkGroup::countAccount).sum();
         }
         if(flexibleWork.isRestExist()) {
             this.restTimeList = flexibleWork.getRestTimeList().stream().map( RestTimeForm::new ).collect( Collectors.toList());
@@ -87,7 +87,7 @@ public class FlexibleWorkDto {
         if(flexibleWork.isMandatoryTimeExist()) {
             this.mandatoryTimeList = flexibleWork.getMandatoryTimeList().stream().map( MandatoryTimeForm::new ).collect( Collectors.toList());
         }
-        this.active = flexibleWork.isActive() ? "사용" : "미사용";
+        this.active = flexibleWork.isActive();
     }
 
 }

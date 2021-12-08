@@ -38,12 +38,12 @@ public class FlexibleWorkPlanDto {
     private LocalTime endTime;
 
     /** 사원 아이디 */
-    private Long employeeId;
+    private Long accountId;
 
     public FlexibleWorkPlanDto(FlexibleWorkPlan flexibleWorkPlan) {
         copyProperties(flexibleWorkPlan, this);
         this.flexibleWorkPlanId = flexibleWorkPlan.getId();
-        this.employeeId = flexibleWorkPlan.getEmployee().getId();
+        this.accountId = flexibleWorkPlan.getAccount().getId();
     }
 
 }

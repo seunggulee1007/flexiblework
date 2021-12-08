@@ -1,9 +1,9 @@
 package com.secommon.separtners.modules.commute.group;
 
 import com.secommon.separtners.infra.commons.BaseServiceAnnotation;
+import com.secommon.separtners.modules.account.Account;
+import com.secommon.separtners.modules.account.repository.AccountRepository;
 import com.secommon.separtners.modules.commute.group.form.CommuteGroupForm;
-import com.secommon.separtners.modules.company.employee.Employee;
-import com.secommon.separtners.modules.company.employee.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 public class CommuteGroupService {
 
     private final CommuteGroupRepository commuteGroupRepository;
-    private final EmployeeRepository employeeRepository;
+    private final AccountRepository accountRepository;
 
     public void saveCommuteGroup(CommuteGroupForm commuteGroupForm) {
         CommuteGroup commuteGroup = CommuteGroup.builder()
@@ -21,10 +21,10 @@ public class CommuteGroupService {
                 .active(commuteGroupForm.isActive())
             .build();
         commuteGroupRepository.save(commuteGroup);
-        List<Long> employeeIds = commuteGroupForm.getEmployeeIdList();
-        for (Long employeeId : employeeIds) {
-            Employee employee = employeeRepository.findById(employeeId).orElseThrow();
-            employee.setCommuteGroup(commuteGroup);
+        List<Long> accountIdList = commuteGroupForm.getAccountIdList();
+        for (Long accountId : accountIdList) {
+            Account account = accountRepository.findById(accountId).orElseThrow();
+            account.setCommuteGroup(commuteGroup);
         }
     }
 

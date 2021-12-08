@@ -2,8 +2,9 @@ package com.secommon.separtners.modules.flexiblework.calculateworkplan;
 
 import com.secommon.separtners.infra.advice.exceptions.BadRequestException;
 import com.secommon.separtners.infra.commons.BaseServiceAnnotation;
+import com.secommon.separtners.modules.account.Account;
+import com.secommon.separtners.modules.account.repository.AccountRepository;
 import com.secommon.separtners.modules.company.employee.Employee;
-import com.secommon.separtners.modules.company.employee.repository.EmployeeRepository;
 import com.secommon.separtners.modules.flexiblework.flexiblework.FlexibleWork;
 import com.secommon.separtners.modules.flexiblework.flexiblework.MandatoryTime;
 import com.secommon.separtners.modules.flexiblework.flexibleworkgroup.FlexibleWorkGroup;
@@ -20,30 +21,30 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CalculateWorkPlanServiceImpl implements CalculateWorkPlanService {
 
-    private final EmployeeRepository employeeRepository;
+    private final AccountRepository accountRepository;
 
     @Override
     public List<FlexibleWorkPlan> calculateWorkPlan(FlexibleWorkPlanForm flexibleWorkPlanForm) {
 
-        Employee employee = employeeRepository.findById(flexibleWorkPlanForm.getEmployeeId()).orElseThrow();
-        List<MandatoryTime> mandatoryTimeList = getMandatoryTimes(employee);
+        Account account = accountRepository.findById(flexibleWorkPlanForm.getAccountId()).orElseThrow();
+        List<MandatoryTime> mandatoryTimeList = getMandatoryTimes(account);
         List<FlexibleWorkPlan> flexibleWorkPlanList = new ArrayList<>();
         for (FlexibleWorkPlanTimeForm flexibleWorkPlanTimeForm : flexibleWorkPlanForm.getFlexibleWorkPlanTimeFormList()) {
             // 의무 시간이 있다면
             checkMandatoryTime(mandatoryTimeList, flexibleWorkPlanTimeForm);
 
-            FlexibleWorkPlan flexibleWorkPlan = makeFlexibleWorkPlan(employee, flexibleWorkPlanTimeForm);
+            FlexibleWorkPlan flexibleWorkPlan = makeFlexibleWorkPlan(account, flexibleWorkPlanTimeForm);
             flexibleWorkPlanList.add(flexibleWorkPlan);
         }
         return flexibleWorkPlanList;
     }
 
-    private FlexibleWorkPlan makeFlexibleWorkPlan(Employee employee, FlexibleWorkPlanTimeForm flexibleWorkPlanTimeForm) {
+    private FlexibleWorkPlan makeFlexibleWorkPlan(Account account, FlexibleWorkPlanTimeForm flexibleWorkPlanTimeForm) {
         FlexibleWorkPlan flexibleWorkPlan = FlexibleWorkPlan.builder()
                 .planDate(flexibleWorkPlanTimeForm.getPlanDate())
                 .startTime(flexibleWorkPlanTimeForm.getStartTime())
                 .endTime(flexibleWorkPlanTimeForm.getEndTime())
-                .employee(employee)
+                .account(account)
                 .build();
         flexibleWorkPlan.calcDate();
         return flexibleWorkPlan;
@@ -60,8 +61,8 @@ public class CalculateWorkPlanServiceImpl implements CalculateWorkPlanService {
         }
     }
 
-    private List<MandatoryTime> getMandatoryTimes(Employee employee) {
-        FlexibleWorkGroup flexibleWorkGroup = employee.getFlexibleWorkGroup();
+    private List<MandatoryTime> getMandatoryTimes(Account account) {
+        FlexibleWorkGroup flexibleWorkGroup = account.getFlexibleWorkGroup();
         FlexibleWork flexibleWork = flexibleWorkGroup.getFlexibleWork();
         return flexibleWork.getMandatoryTimeList();
     }

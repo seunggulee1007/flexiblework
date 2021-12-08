@@ -14,7 +14,7 @@ public class MenuAuthorityRepositoryImpl extends Querydsl4RepositorySupport impl
     }
 
     public List<MenuAuthorityDto> findMenuAuthorityByMenuId(Long menuId) {
-        return select( new QMenuAuthorityDto(authorityGroup.id, authorityGroup.authorityGroupName, menuAuthority.menu.id, menuAuthority.menuRole))
+        return select( new QMenuAuthorityDto(menuAuthority.id, authorityGroup.id, authorityGroup.authorityGroupName, menuAuthority.menu.id, menuAuthority.menuRole))
                 .from(authorityGroup)
                 .leftJoin(authorityGroup.menuAuthorityList, menuAuthority)
                 .on(menuAuthority.menu.id.eq(menuId))

@@ -1,8 +1,8 @@
 package com.secommon.separtners.modules.flexiblework.flexibleworkplan;
 
 import com.secommon.separtners.infra.commons.BaseServiceAnnotation;
-import com.secommon.separtners.modules.company.employee.dto.EmployeeWorkDto;
-import com.secommon.separtners.modules.company.employee.repository.EmployeeRepository;
+import com.secommon.separtners.modules.account.repository.AccountRepository;
+import com.secommon.separtners.modules.company.employee.dto.AccountWorkDto;
 import com.secommon.separtners.modules.flexiblework.calculateworkplan.CalculateWorkPlanService;
 import com.secommon.separtners.modules.flexiblework.flexibleworkplan.form.FlexibleWorkPlanForm;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class FlexibleWorkPlanService {
 
     private final FlexibleWorkPlanRepository flexibleWorkPlanRepository;
 
-    private final EmployeeRepository employeeRepository;
+    private final AccountRepository accountRepository;
 
     private final CalculateWorkPlanService calculateWorkPlanService;
 
@@ -28,8 +28,8 @@ public class FlexibleWorkPlanService {
         return flexibleWorkPlans.size();
     }
 
-    public EmployeeWorkDto findFlexibleWorkPlanByEmployee(Long employeeId) {
-        return employeeRepository.findAllWithWorkGroupAndWorkAndTimes(employeeId);
+    public AccountWorkDto findFlexibleWorkPlanByAccount(Long accountId) {
+        return accountRepository.findAllWithWorkGroupAndWorkAndTimes(accountId);
     }
 
 }

@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MenuAuthorityDto {
 
+    private Long menuAuthorityId;
+
     /** 권한 그룹 식별자 */
     private Long authorityGroupId;
 
@@ -22,7 +24,8 @@ public class MenuAuthorityDto {
 
 
     @QueryProjection
-    public MenuAuthorityDto(Long authorityGroupId, String authorityGroupName, Long menuId, MenuRole menuRole) {
+    public MenuAuthorityDto(Long menuAuthorityId, Long authorityGroupId, String authorityGroupName, Long menuId, MenuRole menuRole) {
+        this.menuAuthorityId = menuAuthorityId;
         this.authorityGroupId = authorityGroupId;
         this.authorityGroupName = authorityGroupName;
         this.menuId = menuId;

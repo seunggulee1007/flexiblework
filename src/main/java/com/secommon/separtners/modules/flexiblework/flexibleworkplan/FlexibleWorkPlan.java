@@ -1,7 +1,7 @@
 package com.secommon.separtners.modules.flexiblework.flexibleworkplan;
 
+import com.secommon.separtners.modules.account.Account;
 import com.secommon.separtners.modules.common.UpdatedEntity;
-import com.secommon.separtners.modules.company.employee.Employee;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,8 +40,8 @@ public class FlexibleWorkPlan extends UpdatedEntity {
     private LocalTime endTime;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     public void calcDate() {
         if(this.planDate != null) {

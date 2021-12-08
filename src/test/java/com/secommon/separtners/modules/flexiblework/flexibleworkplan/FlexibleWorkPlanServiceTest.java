@@ -1,11 +1,9 @@
 package com.secommon.separtners.modules.flexiblework.flexibleworkplan;
 
-import com.secommon.separtners.infra.AbstractContainerBaseTest;
-import com.secommon.separtners.infra.MockMvcTest;
 import com.secommon.separtners.infra.security.WithMockJwtAuthentication;
-import com.secommon.separtners.modules.company.employee.Employee;
-import com.secommon.separtners.modules.company.employee.dto.EmployeeWorkDto;
-import com.secommon.separtners.modules.company.employee.repository.EmployeeRepository;
+import com.secommon.separtners.modules.account.Account;
+import com.secommon.separtners.modules.account.repository.AccountRepository;
+import com.secommon.separtners.modules.company.employee.dto.AccountWorkDto;
 import com.secommon.separtners.modules.flexiblework.flexiblework.FlexibleWork;
 import com.secommon.separtners.modules.flexiblework.flexiblework.MandatoryTime;
 import com.secommon.separtners.modules.flexiblework.flexiblework.enums.DailyWorkTime;
@@ -45,7 +43,7 @@ class FlexibleWorkPlanServiceTest {
     @Autowired
     private FlexibleWorkGroupRepository flexibleWorkGroupRepository;
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private AccountRepository accountRepository;
 
 
     @Test
@@ -56,13 +54,14 @@ class FlexibleWorkPlanServiceTest {
         FlexibleWork flexibleWork = saveFlexibleWork();
         saveMandatoryTime(flexibleWork);
         FlexibleWorkGroup flexibleWorkGroup = saveFlexibleWorkGroup(flexibleWork);
-        Employee employee = employeeRepository.findAll().get(0);
-        employee.setWorkGroup(flexibleWorkGroup);
+        Account account = accountRepository.findAll().get(0);
+        account.setWorkGroup(flexibleWorkGroup);
         // when
-        EmployeeWorkDto flexibleWorkPlanByEmployee = flexibleWorkPlanService.findFlexibleWorkPlanByEmployee(employee.getId());
+        AccountWorkDto flexibleWorkPlanByEmployee = flexibleWorkPlanService.findFlexibleWorkPlanByAccount(account.getId());
         // then
-        assertEquals(flexibleWorkPlanByEmployee.getEmployeeId(), employee.getId());
-        assertEquals(2, flexibleWorkPlanByEmployee.getMandatoryTimeList().size());
+        assertEquals(flexibleWorkPlanByEmployee.getAccountId(), account.getId());
+        assertEquals(1, flexibleWorkPlanByEmployee.getMandatoryTimeList().size());
+
     }
 
     private FlexibleWorkGroup saveFlexibleWorkGroup(FlexibleWork flexibleWork) {
