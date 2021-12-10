@@ -1,6 +1,6 @@
 package com.secommon.separtners.modules.company.employee.form;
 
-import com.secommon.separtners.modules.company.employee.EmployeeStatus;
+import com.secommon.separtners.modules.company.employee.enums.EmployeeStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

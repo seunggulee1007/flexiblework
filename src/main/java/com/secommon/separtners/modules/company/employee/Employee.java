@@ -2,10 +2,9 @@ package com.secommon.separtners.modules.company.employee;
 
 import com.secommon.separtners.modules.account.Account;
 import com.secommon.separtners.modules.common.UpdatedEntity;
-import com.secommon.separtners.modules.company.department.Department;
-import com.secommon.separtners.modules.company.employeedepartment.EmployeeDepartment;
+import com.secommon.separtners.modules.company.employee.enums.EmployeeStatus;
+import com.secommon.separtners.modules.company.employee.enums.Position;
 import com.secommon.separtners.modules.company.employeemanagement.EmployeeManagement;
-import com.secommon.separtners.modules.flexiblework.flexibleworkgroup.FlexibleWorkGroup;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,8 +18,7 @@ import static javax.persistence.FetchType.LAZY;
 
 @Slf4j
 @Entity
-@Builder
-@Getter
+@Builder @Getter
 @AllArgsConstructor @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Employee extends UpdatedEntity {
 
@@ -47,20 +45,17 @@ public class Employee extends UpdatedEntity {
     /** 퇴사일자 */
     private LocalDate resignationDate;
 
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "account_id")
-    private Account account;
-
+    /** 로그인 계정 */
     @OneToMany(fetch = LAZY, mappedBy = "employee")
     @Builder.Default
-    private List<EmployeeDepartment> employeeDepartmentList = new ArrayList<>();
+    private List<Account> accountList = new ArrayList<>();
 
+    /** 사원 관리 */
     @OneToMany(fetch = LAZY, mappedBy = "employee")
     @Builder.Default
-    private List<EmployeeManagement> employeeList = new ArrayList<>();
+    private List<EmployeeManagement> employeeManagementList = new ArrayList<>();
 
-    @ManyToOne(fetch = LAZY)
-    private FlexibleWorkGroup flexibleWorkGroup;
+
 
     public void updateStatus(EmployeeStatus status) {
         this.status = status;
@@ -69,28 +64,8 @@ public class Employee extends UpdatedEntity {
         }
     }
 
-    public void updateDepartmentManagement ( Department originDepartment, Department willChangeDepartment ) {
-        EmployeeDepartment employeeDepartment = this.employeeDepartmentList.stream().filter( department -> department.getDepartment().equals( originDepartment ) ).findFirst().orElseThrow();
-        employeeDepartment.moveDepartment(willChangeDepartment);
-    }
-
-    public void matchingAccount ( Account account ) {
-        this.account = account;
-    }
-
     public void updatePosition ( Position position ) {
         this.position = position;
     }
 
-    public void setWorkGroup ( FlexibleWorkGroup flexibleWorkGroup ) {
-        this.flexibleWorkGroup = flexibleWorkGroup;
-        if(!this.flexibleWorkGroup.getEmployeeList().contains( this )) {
-            this.flexibleWorkGroup.getEmployeeList().add( this );
-        }
-    }
-
-    public void removeWorkGroup () {
-        this.flexibleWorkGroup.getEmployeeList().remove( this );
-        this.flexibleWorkGroup = null;
-    }
 }

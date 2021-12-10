@@ -10,10 +10,8 @@ import com.secommon.separtners.modules.flexiblework.flexiblework.enums.WorkDayOf
 import com.secommon.separtners.modules.flexiblework.flexiblework.form.FlexibleWorkForm;
 import com.secommon.separtners.modules.flexiblework.flexiblework.form.FlexibleWorkSearchForm;
 import com.secommon.separtners.modules.flexiblework.flexiblework.form.MandatoryTimeForm;
-import com.secommon.separtners.modules.flexiblework.flexiblework.form.RestTimeForm;
 import com.secommon.separtners.modules.flexiblework.flexiblework.repository.FlexibleWorkRepository;
 import com.secommon.separtners.modules.flexiblework.flexiblework.repository.MandatoryTimeRepository;
-import com.secommon.separtners.modules.flexiblework.flexiblework.repository.RestTimeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -30,7 +28,6 @@ import java.util.stream.Collectors;
 public class FlexibleWorkService {
 
     private final FlexibleWorkRepository flexibleWorkRepository;
-    private final RestTimeRepository restTimeRepository;
     private final MandatoryTimeRepository mandatoryTimeRepository;
 
     /**
@@ -49,33 +46,7 @@ public class FlexibleWorkService {
     public Long saveNewFlexibleWork( FlexibleWorkForm flexibleWorkForm ) {
         FlexibleWork flexibleWork = saveFlexibleWork( flexibleWorkForm );
         saveMandatoryTime( flexibleWork, flexibleWorkForm );
-        saveRestTime( flexibleWork, flexibleWorkForm );
         return flexibleWork.getId();
-    }
-
-    /**
-     * 휴게 시간 저장
-     */
-    private void saveRestTime ( FlexibleWork flexibleWork, FlexibleWorkForm flexibleWorkForm ) {
-        if( flexibleWorkForm.isRestExist() ) {
-            List<RestTimeForm> restTimeList = flexibleWorkForm.getRestTimeList();
-            List<RestTime> restTimes = new ArrayList<>();
-            for ( RestTimeForm restTimeForm: restTimeList ) {
-                RestTime restTime;
-                if( restTimeForm.getRestTimeId() != null ) {
-                    restTime = restTimeRepository.findById( restTimeForm.getRestTimeId() ).orElseThrow();
-                    restTime.changeTimes(restTimeForm);
-                } else {
-                    restTime = RestTime.builder()
-                            .startTime( restTimeForm.getStartTime() )
-                            .endTime( restTimeForm.getEndTime() )
-                            .build();
-                }
-                restTime.setFlexibleWork(flexibleWork);
-                restTimes.add( restTime );
-            }
-            restTimeRepository.saveAll( restTimes );
-        }
     }
 
     /**
@@ -99,7 +70,7 @@ public class FlexibleWorkService {
 
     /**
      * 유연근무 저장
-     * @param flexibleWorkForm
+     * @param flexibleWorkForm : 유연근무 폼
      */
     private FlexibleWork saveFlexibleWork ( FlexibleWorkForm flexibleWorkForm ) {
         FlexibleWork flexibleWork = FlexibleWork.builder()

@@ -3,7 +3,7 @@ package com.secommon.separtners.modules.main;
 
 import com.secommon.separtners.infra.commons.BaseAnnotation;
 import com.secommon.separtners.infra.security.JwtAuthenticationToken;
-import com.secommon.separtners.modules.account.AccountDto;
+import com.secommon.separtners.modules.account.dto.AccountDto;
 import com.secommon.separtners.modules.account.AccountService;
 import com.secommon.separtners.modules.main.form.LoginForm;
 import com.secommon.separtners.utils.ApiUtil;

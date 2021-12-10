@@ -8,4 +8,5 @@ public class EmployeeSearchForm {
     private String userName;
 
     private String email;
+
 }

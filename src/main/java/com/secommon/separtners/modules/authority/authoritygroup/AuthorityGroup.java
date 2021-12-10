@@ -1,6 +1,6 @@
 package com.secommon.separtners.modules.authority.authoritygroup;
 
-import com.secommon.separtners.modules.authority.authoritygroup.form.AuthorityGroupForm;
+import com.secommon.separtners.modules.authority.authoritygroup.form.AuthorityGroupUpdateForm;
 import com.secommon.separtners.modules.authority.menuauthority.MenuAuthority;
 import com.secommon.separtners.modules.common.UpdatedEntity;
 import lombok.*;
@@ -36,14 +36,14 @@ public class AuthorityGroup extends UpdatedEntity {
     @OneToMany(mappedBy = "authorityGroup", fetch = LAZY)
     private List<AuthorityGroupAccount> authorityGroupAccountList;
 
-    @OneToMany(fetch = LAZY)
+    @OneToMany(mappedBy = "authorityGroup", fetch = LAZY)
     List<MenuAuthority> menuAuthorityList;
 
-    public void updateByAuthorityGroupForm ( AuthorityGroupForm authorityGroupForm ) {
-        this.active = authorityGroupForm.isActive();
-        this.basic = authorityGroupForm.isBasic();
-        this.admin = authorityGroupForm.isAdmin();
-        this.authorityGroupName = authorityGroupForm.getAuthorityGroupName();
+    public void updateByAuthorityGroupUpdateForm(AuthorityGroupUpdateForm authorityGroupUpdateForm) {
+        this.active = authorityGroupUpdateForm.isActive();
+        this.basic = authorityGroupUpdateForm.isBasic();
+        this.admin = authorityGroupUpdateForm.isAdmin();
+        this.authorityGroupName = authorityGroupUpdateForm.getAuthorityGroupName();
     }
 
 }

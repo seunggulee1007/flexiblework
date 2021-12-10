@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -12,9 +13,6 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor @AllArgsConstructor
 public class MenuForm {
-
-    /** 메뉴 아이디 */
-    private Long menuId;
 
     /** 메뉴 명 */
     @NotEmpty(message = "메뉴 명이 누락되었습니다.")
@@ -32,7 +30,8 @@ public class MenuForm {
 
     /** 순서 */
     @NotNull(message = "순번이 누락되었습니다.")
-    private int order;
+    @Min(value = 1, message = "순번은 1부터 시작됩니다.")
+    private int orderNumber;
 
     @NotNull(message = "부모 메뉴식별자가 누락되었습니다.")
     private Long parentId;

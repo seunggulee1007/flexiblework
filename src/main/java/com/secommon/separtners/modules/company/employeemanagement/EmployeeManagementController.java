@@ -20,9 +20,5 @@ public class EmployeeManagementController {
 
     private final EmployeeManagementService employeeManagementService;
 
-    @PostMapping("/employee/department")
-    public ApiUtil.ApiResult<List<Long>> registerEmployeeToDepartment( @Valid @RequestBody List<EmployeeForm> employeeFormList ) {
-        return success(employeeManagementService.registerEmployeeToDepartment( employeeFormList ), CommonMessage.SUCCESS_REGISTER.getMessage() );
-    }
 
 }

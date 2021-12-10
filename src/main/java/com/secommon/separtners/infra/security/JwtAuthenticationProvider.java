@@ -1,7 +1,7 @@
 package com.secommon.separtners.infra.security;
 
 import com.secommon.separtners.infra.advice.exceptions.NotFoundException;
-import com.secommon.separtners.modules.account.AccountDto;
+import com.secommon.separtners.modules.account.dto.AccountDto;
 import com.secommon.separtners.modules.account.AccountService;
 import com.secommon.separtners.modules.main.form.LoginForm;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +38,6 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
                     .email( email )
                     .password( password )
                     .build() );
-            log.error( "roles ::{}", accountDto.getRoles() );
             JwtAuthenticationToken authenticated =
                     new JwtAuthenticationToken(
                             new JwtAuthentication(accountDto.getAccountId(), accountDto.getEmail()),

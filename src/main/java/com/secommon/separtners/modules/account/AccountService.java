@@ -9,6 +9,7 @@ import com.secommon.separtners.infra.mail.EmailService;
 import com.secommon.separtners.infra.properties.AppProperties;
 import com.secommon.separtners.infra.security.Jwt;
 import com.secommon.separtners.infra.security.JwtAuthentication;
+import com.secommon.separtners.modules.account.dto.AccountDto;
 import com.secommon.separtners.modules.account.form.PasswordForm;
 import com.secommon.separtners.modules.account.form.ProfileImageForm;
 import com.secommon.separtners.modules.account.form.SignUpForm;
@@ -94,7 +95,7 @@ public class AccountService {
      * @param loginForm : 로그인 정보
      * @return AccountDto
      */
-    public AccountDto login ( LoginForm loginForm ) {
+    public AccountDto login (LoginForm loginForm ) {
         Account account = accountRepository.findByEmail( loginForm.getEmail() ).orElseThrow(NoMemberException::new);
         account.login( passwordEncoder, loginForm.getPassword() );
         AccountDto accountDto = new AccountDto(account);

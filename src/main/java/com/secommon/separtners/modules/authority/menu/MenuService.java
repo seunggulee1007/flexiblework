@@ -3,6 +3,7 @@ package com.secommon.separtners.modules.authority.menu;
 import com.secommon.separtners.infra.advice.exceptions.BadRequestException;
 import com.secommon.separtners.infra.commons.BaseServiceAnnotation;
 import com.secommon.separtners.modules.authority.menu.form.MenuForm;
+import com.secommon.separtners.modules.authority.menu.form.MenuUpdateForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,19 +25,11 @@ public class MenuService {
         return Collections.singletonList(menuDto);
     }
 
-    public Long saveNewMenu( MenuForm menuForm) {
-        if(menuForm.getMenuId() != null) {
-            return saveMenu( menuForm );
-        } else {
-            return updateMenu( menuForm );
-        }
-    }
-
-    private Long saveMenu ( MenuForm menuForm ) {
+    public Long saveMenu(MenuForm menuForm ) {
         Menu menu = Menu.builder()
                 .menuName( menuForm.getMenuName() )
                 .active( menuForm.isActive() )
-                .orderNumber( menuForm.getOrder() )
+                .orderNumber( menuForm.getOrderNumber() )
                 .page( menuForm.isPage() )
                 .menuPath( menuForm.getMenuPath() )
                 .build();
@@ -46,29 +39,29 @@ public class MenuService {
         return menu.getId();
     }
 
-    private Long updateMenu ( MenuForm menuForm ) {
-        Menu menu = menuRepository.findById( menuForm.getMenuId() ).orElseThrow();
-        menu.updateMenu( menuForm );
-        if( !menu.getParent().getId().equals( menuForm.getParentId() ) ) {
-            Menu parent = menuRepository.findById( menuForm.getParentId() ).orElseThrow();
+    public Long updateMenu (MenuUpdateForm menuUpdateForm ) {
+        Menu menu = menuRepository.findById( menuUpdateForm.getMenuId() ).orElseThrow();
+        menu.updateMenu( menuUpdateForm );
+        if( !menu.getParent().getId().equals( menuUpdateForm.getParentId() ) ) {
+            Menu parent = menuRepository.findById( menuUpdateForm.getParentId() ).orElseThrow();
             menu.updateParent(parent);
         }
         return menu.getId();
     }
 
-    public void updateOrder(List<MenuForm> menuFormList) {
+    public List<MenuUpdateForm> updateOrder(List<MenuUpdateForm> menuUpdateFormList) {
 
-        if(menuFormList.isEmpty()) {
+        if(menuUpdateFormList.isEmpty()) {
             throw new BadRequestException("순서를 변경할 메뉴가 적어도 한개 이상 필요합니다.");
         }
 
-        List<Menu> menuList = menuRepository.findAllByParentId(menuFormList.get( 0 ).getParentId());
+        List<Menu> menuList = menuRepository.findAllByParentId(menuUpdateFormList.get( 0 ).getParentId());
 
-        for ( MenuForm menuForm: menuFormList ) {
-            Menu menu = menuList.stream().filter( menus -> menus.getId().equals( menuForm.getMenuId() ) ).findFirst().orElseThrow();
-            menu.updateOrder(menuForm.getOrder());
+        for ( MenuUpdateForm menuUpdateForm: menuUpdateFormList ) {
+            Menu menu = menuList.stream().filter( menus -> menus.getId().equals( menuUpdateForm.getMenuId() ) ).findFirst().orElseThrow();
+            menu.updateOrder(menuUpdateForm.getOrderNumber());
         }
-
+        return menuUpdateFormList;
     }
 
 }

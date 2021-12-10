@@ -10,8 +10,8 @@ public enum FlexibleWorkType implements EnumMapperType {
     HOME("재택 근무제", false),
     TIME("시차출퇴근제", false),
     ;
-    String codeName;
-    boolean defaultValue;
+    final String codeName;
+    final boolean defaultValue;
 
     FlexibleWorkType(String codeName, boolean defaultValue) {
         this.codeName = codeName;

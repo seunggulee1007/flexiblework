@@ -2,6 +2,7 @@ package com.secommon.separtners.modules.common;
 
 import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.Expression;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -18,6 +19,7 @@ import org.springframework.util.Assert;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -94,6 +96,12 @@ public abstract class Querydsl4RepositorySupport {
         JPAQuery countResult = countQuery.apply(getQueryFactory());
         return PageableExecutionUtils.getPage(content, pageable,
                 countResult::fetchCount);
+    }
+
+    protected <T> Predicate condition(T value, Function<T, Predicate> function) {
+        return Optional.ofNullable(value.equals("") ? null : value)
+                .map(function)
+                .orElse(null);
     }
 
 }

@@ -14,8 +14,6 @@ import java.util.List;
 @NoArgsConstructor @AllArgsConstructor
 public class AuthorityGroupForm {
 
-    private Long authorityGroupId;
-
     @NotEmpty(message = "그룹명을 입력해 주세요.")
     private String authorityGroupName;
 

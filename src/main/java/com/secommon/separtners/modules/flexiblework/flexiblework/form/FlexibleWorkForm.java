@@ -55,8 +55,7 @@ public class FlexibleWorkForm {
     /** 마감 여부 */
     private boolean close;
 
-    @Builder.Default
-    private List<RestTimeForm> restTimeList = new ArrayList<>();
+    private int restTime;
 
     @Builder.Default
     private List<MandatoryTimeForm> mandatoryTimeList = new ArrayList<>();

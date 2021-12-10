@@ -3,7 +3,7 @@ package com.secommon.separtners.modules.company.employeemanagement;
 import com.secommon.separtners.modules.common.CreatedEntity;
 import com.secommon.separtners.modules.company.department.Department;
 import com.secommon.separtners.modules.company.employee.Employee;
-import com.secommon.separtners.modules.company.employee.EmployeeStatus;
+import com.secommon.separtners.modules.company.employee.enums.EmployeeStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,16 +21,18 @@ public class EmployeeManagement extends CreatedEntity {
     @Column(name="employee_management_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
     /** 원래 부서 */
-    @OneToOne(fetch = LAZY)
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "origin_department_id")
     private Department originDepartment;
 
     /** 변경할 부서 */
-    @OneToOne(fetch = LAZY)
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "will_change_department_id")
     private Department willChangeDepartment;
 
     /** 사원 상태 */
@@ -46,10 +48,6 @@ public class EmployeeManagement extends CreatedEntity {
 
     public void updateStatus() {
         this.employee.updateStatus( this.status );
-    }
-
-    public void updateDepartmentManagement(Department originDepartment, Department willChangeDepartment) {
-        this.employee.updateDepartmentManagement(originDepartment, willChangeDepartment);
     }
 
 }

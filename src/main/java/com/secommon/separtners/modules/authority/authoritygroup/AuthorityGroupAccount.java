@@ -35,4 +35,11 @@ public class AuthorityGroupAccount extends UpdatedEntity {
         this.authorityGroup = null;
     }
 
+    public void setGroupAccount(Account account, AuthorityGroup authorityGroup) {
+        this.account = account;
+        this.account.getAuthorityGroupAccountList().add(this);
+        this.authorityGroup = authorityGroup;
+        this.authorityGroup.getAuthorityGroupAccountList().add(this);
+    }
+
 }

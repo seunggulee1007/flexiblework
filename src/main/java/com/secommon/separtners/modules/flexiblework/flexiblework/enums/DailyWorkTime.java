@@ -9,8 +9,8 @@ public enum DailyWorkTime implements EnumMapperType {
     EIGHT("8시간", true),
     ;
 
-    String codeName;
-    boolean defaultValue;
+    final String codeName;
+    final boolean defaultValue;
     DailyWorkTime(String codeName, boolean defaultValue) {
         this.codeName = codeName;
         this.defaultValue = defaultValue;
