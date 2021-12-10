@@ -1,6 +1,7 @@
 package com.secommon.separtners.modules.account;
 
 import com.secommon.separtners.infra.commons.BaseAnnotation;
+import com.secommon.separtners.modules.account.dto.AccountDto;
 import com.secommon.separtners.modules.account.form.SignUpForm;
 import com.secommon.separtners.modules.account.validator.SignUpFormValidator;
 import com.secommon.separtners.utils.ApiUtil;
@@ -33,7 +34,7 @@ public class AccountController {
      * @return AccountDto
      */
     @PostMapping("/sign-up")
-    public ApiUtil.ApiResult<AccountDto> signUp( @Valid @RequestBody SignUpForm signUpForm ) {
+    public ApiUtil.ApiResult<AccountDto> signUp(@Valid @RequestBody SignUpForm signUpForm ) {
         return success( new AccountDto(accountService.processNewAccount( signUpForm )));
     }
 

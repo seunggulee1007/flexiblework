@@ -21,16 +21,18 @@ public class EmployeeManagement extends CreatedEntity {
     @Column(name="employee_management_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
     /** 원래 부서 */
-    @OneToOne(fetch = LAZY)
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "origin_department_id")
     private Department originDepartment;
 
     /** 변경할 부서 */
-    @OneToOne(fetch = LAZY)
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "will_change_department_id")
     private Department willChangeDepartment;
 
     /** 사원 상태 */

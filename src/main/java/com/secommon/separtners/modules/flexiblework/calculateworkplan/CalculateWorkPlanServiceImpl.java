@@ -4,10 +4,8 @@ import com.secommon.separtners.infra.advice.exceptions.BadRequestException;
 import com.secommon.separtners.infra.commons.BaseServiceAnnotation;
 import com.secommon.separtners.modules.account.Account;
 import com.secommon.separtners.modules.account.repository.AccountRepository;
-import com.secommon.separtners.modules.company.employee.Employee;
 import com.secommon.separtners.modules.flexiblework.flexiblework.FlexibleWork;
 import com.secommon.separtners.modules.flexiblework.flexiblework.MandatoryTime;
-import com.secommon.separtners.modules.flexiblework.flexibleworkgroup.FlexibleWorkGroup;
 import com.secommon.separtners.modules.flexiblework.flexibleworkplan.FlexibleWorkPlan;
 import com.secommon.separtners.modules.flexiblework.flexibleworkplan.form.FlexibleWorkPlanForm;
 import com.secommon.separtners.modules.flexiblework.flexibleworkplan.form.FlexibleWorkPlanTimeForm;
@@ -62,8 +60,7 @@ public class CalculateWorkPlanServiceImpl implements CalculateWorkPlanService {
     }
 
     private List<MandatoryTime> getMandatoryTimes(Account account) {
-        FlexibleWorkGroup flexibleWorkGroup = account.getFlexibleWorkGroup();
-        FlexibleWork flexibleWork = flexibleWorkGroup.getFlexibleWork();
+        FlexibleWork flexibleWork = account.getFlexibleWorkGroup().getFlexibleWork();
         return flexibleWork.getMandatoryTimeList();
     }
 }

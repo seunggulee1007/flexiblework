@@ -1,11 +1,8 @@
-package com.secommon.separtners.modules.company.employee.dto;
+package com.secommon.separtners.modules.account.dto;
 
 import com.secommon.separtners.modules.account.Account;
-import com.secommon.separtners.modules.company.employee.Employee;
 import com.secommon.separtners.modules.flexiblework.flexiblework.FlexibleWork;
 import com.secommon.separtners.modules.flexiblework.flexiblework.form.MandatoryTimeForm;
-import com.secommon.separtners.modules.flexiblework.flexiblework.form.RestTimeForm;
-import com.secommon.separtners.modules.flexiblework.flexibleworkgroup.FlexibleWorkGroup;
 import com.secommon.separtners.modules.flexiblework.flexibleworkplan.dto.FlexibleWorkPlanDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,26 +24,23 @@ public class AccountWorkDto {
 
     private Long flexibleWorkId;
 
-    private Long flexibleWorkGroupId;
-
     private LocalTime startTime;
 
     private LocalTime endTime;
 
     private List<MandatoryTimeForm> mandatoryTimeList;
 
-    private List<RestTimeForm> restTimeList;
+    private int restTime;
 
     private List<FlexibleWorkPlanDto> flexibleWorkPlanList;
 
-    public AccountWorkDto(Account account, FlexibleWork flexibleWork, FlexibleWorkGroup flexibleWorkGroup) {
+    public AccountWorkDto(Account account, FlexibleWork flexibleWork) {
         this.accountId = account.getId();
         this.flexibleWorkId = flexibleWork.getId();
-        this.flexibleWorkGroupId = flexibleWorkGroup.getId();
         this.startTime = flexibleWork.getStartTime();
         this.endTime = flexibleWork.getEndTime();
         this.mandatoryTimeList = flexibleWork.getMandatoryTimeList().stream().map(MandatoryTimeForm::new).collect(Collectors.toList());
-        this.restTimeList = flexibleWork.getRestTimeList().stream().map(RestTimeForm::new).collect(Collectors.toList());
+        this.restTime = flexibleWork.getRestTime();
         this.flexibleWorkPlanList = account.getFlexibleWorkPlanList().stream().map(FlexibleWorkPlanDto::new).collect(Collectors.toList());
     }
 

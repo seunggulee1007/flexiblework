@@ -12,8 +12,8 @@ public enum WorkDayOfWeek implements EnumMapperType {
     SATURDAY("토", false),
     SUNDAY("일", false),
     ;
-    String codeName;
-    boolean defaultValue;
+    final String codeName;
+    final boolean defaultValue;
 
     WorkDayOfWeek(String codeName, boolean defaultValue) {
         this.codeName = codeName;

@@ -1,12 +1,14 @@
 package com.secommon.separtners.modules.flexiblework.flexiblework;
 
 import com.secommon.separtners.modules.common.UpdatedEntity;
-import com.secommon.separtners.modules.flexiblework.flexibleworkgroup.FlexibleWorkGroup;
+import com.secommon.separtners.modules.company.department.Department;
 import com.secommon.separtners.modules.flexiblework.flexiblework.enums.DailyWorkTime;
 import com.secommon.separtners.modules.flexiblework.flexiblework.enums.FlexibleWorkType;
 import com.secommon.separtners.modules.flexiblework.flexiblework.enums.SettlementUnitPeriod;
 import com.secommon.separtners.modules.flexiblework.flexiblework.enums.WorkDayOfWeek;
+import com.secommon.separtners.modules.flexiblework.flexibleworkgroup.FlexibleWorkGroup;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -64,6 +66,9 @@ public class FlexibleWork extends UpdatedEntity {
     /** 휴게시간 유무 */
     private boolean restExist;
 
+    @ColumnDefault("0")
+    private int restTime;
+
     /** 의무 시간 유무 */
     private boolean mandatoryTimeExist;
 
@@ -72,10 +77,6 @@ public class FlexibleWork extends UpdatedEntity {
 
     /** 마감 여부 */
     private boolean close = false;
-
-    @OneToMany(mappedBy = "flexibleWork", fetch = LAZY)
-    @Builder.Default
-    private List<RestTime> restTimeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "flexibleWork", fetch = LAZY)
     @Builder.Default

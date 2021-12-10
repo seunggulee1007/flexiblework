@@ -3,7 +3,7 @@ package com.secommon.separtners.modules.flexiblework.flexibleworkplan;
 import com.secommon.separtners.infra.security.WithMockJwtAuthentication;
 import com.secommon.separtners.modules.account.Account;
 import com.secommon.separtners.modules.account.repository.AccountRepository;
-import com.secommon.separtners.modules.company.employee.dto.AccountWorkDto;
+import com.secommon.separtners.modules.account.dto.AccountWorkDto;
 import com.secommon.separtners.modules.flexiblework.flexiblework.FlexibleWork;
 import com.secommon.separtners.modules.flexiblework.flexiblework.MandatoryTime;
 import com.secommon.separtners.modules.flexiblework.flexiblework.enums.DailyWorkTime;
@@ -53,25 +53,14 @@ class FlexibleWorkPlanServiceTest {
         // given
         FlexibleWork flexibleWork = saveFlexibleWork();
         saveMandatoryTime(flexibleWork);
-        FlexibleWorkGroup flexibleWorkGroup = saveFlexibleWorkGroup(flexibleWork);
         Account account = accountRepository.findAll().get(0);
-        account.setWorkGroup(flexibleWorkGroup);
+        account.setFlexibleWork(flexibleWork);
         // when
         AccountWorkDto flexibleWorkPlanByEmployee = flexibleWorkPlanService.findFlexibleWorkPlanByAccount(account.getId());
         // then
         assertEquals(flexibleWorkPlanByEmployee.getAccountId(), account.getId());
         assertEquals(1, flexibleWorkPlanByEmployee.getMandatoryTimeList().size());
 
-    }
-
-    private FlexibleWorkGroup saveFlexibleWorkGroup(FlexibleWork flexibleWork) {
-        FlexibleWorkGroup flexibleWorkGroup = FlexibleWorkGroup.builder()
-                .flexibleWork(flexibleWork)
-                .flexibleWorkGroupName("테스트 그룹")
-                .active(true)
-                .build();
-        flexibleWorkGroupRepository.save(flexibleWorkGroup);
-        return flexibleWorkGroup;
     }
 
     private void saveMandatoryTime(FlexibleWork flexibleWork) {

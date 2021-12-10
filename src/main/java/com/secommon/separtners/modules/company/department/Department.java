@@ -3,6 +3,9 @@ package com.secommon.separtners.modules.company.department;
 import com.secommon.separtners.modules.account.Account;
 import com.secommon.separtners.modules.common.UpdatedEntity;
 import com.secommon.separtners.modules.company.departmenmanagement.DepartmentManagement;
+import com.secommon.separtners.modules.company.employeemanagement.EmployeeManagement;
+import com.secommon.separtners.modules.flexiblework.flexiblework.FlexibleWork;
+import com.secommon.separtners.modules.flexiblework.flexibleworkgroup.FlexibleWorkGroup;
 import lombok.*;
 import org.springframework.util.StringUtils;
 
@@ -52,6 +55,18 @@ public class Department extends UpdatedEntity {
     /** 해당 부서 관리 리스트 */
     @OneToMany(fetch = LAZY, mappedBy = "department")
     private List<DepartmentManagement> departmentManagementList;
+
+    @OneToMany(fetch = LAZY, mappedBy = "originDepartment")
+    @Builder.Default
+    private List<EmployeeManagement> originEmployeeManagementList = new ArrayList<>();
+
+    @OneToMany(fetch = LAZY, mappedBy = "willChangeDepartment")
+    @Builder.Default
+    private List<EmployeeManagement> willChangeEmployeeManagementList = new ArrayList<>();
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "flexible_work_group_id")
+    private FlexibleWorkGroup flexibleWorkGroup;
 
     public void setSettingParent(Department department) {
         if(this.parent != null) {

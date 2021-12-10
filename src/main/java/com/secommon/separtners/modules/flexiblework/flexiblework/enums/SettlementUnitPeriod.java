@@ -10,8 +10,8 @@ public enum SettlementUnitPeriod implements EnumMapperType {
     THREE_MONTH("3개월", false),
     ;
 
-    String codeName;
-    boolean defaultValue;
+    final String codeName;
+    final boolean defaultValue;
     SettlementUnitPeriod(String codeName, boolean defaultValue) {
         this.codeName = codeName;
         this.defaultValue = defaultValue;

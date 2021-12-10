@@ -2,7 +2,7 @@ package com.secommon.separtners.modules.flexiblework.flexibleworkplan;
 
 import com.secommon.separtners.infra.commons.BaseServiceAnnotation;
 import com.secommon.separtners.modules.account.repository.AccountRepository;
-import com.secommon.separtners.modules.company.employee.dto.AccountWorkDto;
+import com.secommon.separtners.modules.account.dto.AccountWorkDto;
 import com.secommon.separtners.modules.flexiblework.calculateworkplan.CalculateWorkPlanService;
 import com.secommon.separtners.modules.flexiblework.flexibleworkplan.form.FlexibleWorkPlanForm;
 import lombok.RequiredArgsConstructor;

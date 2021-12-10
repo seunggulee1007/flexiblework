@@ -1,6 +1,7 @@
-package com.secommon.separtners.modules.account;
+package com.secommon.separtners.modules.account.dto;
 
 import com.secommon.separtners.infra.security.Jwt;
+import com.secommon.separtners.modules.account.Account;
 import com.secommon.separtners.modules.account.enums.AccountRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

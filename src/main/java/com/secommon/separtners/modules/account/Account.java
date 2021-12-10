@@ -12,6 +12,7 @@ import com.secommon.separtners.modules.commute.commute.Commute;
 import com.secommon.separtners.modules.commute.group.CommuteGroup;
 import com.secommon.separtners.modules.company.department.Department;
 import com.secommon.separtners.modules.company.employee.Employee;
+import com.secommon.separtners.modules.flexiblework.flexiblework.FlexibleWork;
 import com.secommon.separtners.modules.flexiblework.flexibleworkgroup.FlexibleWorkGroup;
 import com.secommon.separtners.modules.flexiblework.flexibleworkplan.FlexibleWorkPlan;
 import lombok.AllArgsConstructor;
@@ -182,16 +183,6 @@ public class Account extends UpdatedEntity {
     public void matchingEmployee(Employee employee) {
         this.employee = employee;
         this.employee.getAccountList().add(this);
-    }
-
-    public void setWorkGroup ( FlexibleWorkGroup flexibleWorkGroup ) {
-        this.flexibleWorkGroup = flexibleWorkGroup;
-        this.flexibleWorkGroup.getAccountList().add( this );
-    }
-
-    public void removeWorkGroup () {
-        this.flexibleWorkGroup.getAccountList().remove( this );
-        this.flexibleWorkGroup = null;
     }
 
     public void setCommuteGroup(CommuteGroup commuteGroup) {
